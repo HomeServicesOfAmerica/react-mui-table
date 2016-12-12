@@ -8,6 +8,10 @@
     "start": "webpack-dev-server --progress --colors --hot --content-base build --config ./webpack.config.js",
     "lint": "eslint ./app"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kristajg/react-mui-table.git"
+  },
   "keywords": [
     "react",
     "material-ui"
