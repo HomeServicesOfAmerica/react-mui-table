@@ -5,7 +5,7 @@ import {
   Table,
   TableBody,
   TableRow,
-  TableRowColumn
+  TableRowColumn,
 } from 'material-ui/Table';
 
 import Header from './components/Header';
@@ -23,17 +23,17 @@ import Header from './components/Header';
 
 // example data
 const headerData = [
-	{ title: 'name' },
-	{ title: 'age' },
-	{ title: 'job' },
+{ title: 'name' },
+{ title: 'age' },
+{ title: 'job' },
 ];
 
 const bodyData = [
-	{ name: 'bob', age: 30, job: 'engineer' },
-	{ name: 'jane', age: 25, job: 'designer' },
+{ name: 'bob', age: 30, job: 'engineer' },
+{ name: 'jane', age: 25, job: 'designer' },
 ];
 
-
+// eslint-disable-next-line react/prefer-stateless-function
 export default class ReactMuiTable extends PureComponent {
   render() {
     return (
@@ -50,7 +50,7 @@ export default class ReactMuiTable extends PureComponent {
 }
 
 // Render for local dev validation
-render(
+render (
 	<MuiThemeProvider>
 		<ReactMuiTable />
 	</MuiThemeProvider>,
