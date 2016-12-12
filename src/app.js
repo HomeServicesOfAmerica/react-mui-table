@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
+
+import Header from './components/Header';
+// import Body from './components/Body';
+
 
 // needs to accept data for table header
 
@@ -18,15 +20,26 @@ import {
 
 // sorting && filter TBD
 
-export default class ReactMuiTable extends Component {
+
+// example data
+const headerData = [
+	{ title: 'one' },
+	{ title: 'two' },
+	{ title: 'three' },
+];
+
+const bodyData = [
+	{},
+	{},
+];
+
+
+class ReactMuiTable extends PureComponent {
   render() {
     return (
       <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHeaderColumn>One Column</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
+				{ Header(headerData) }
+
         <TableBody>
           <TableRow>
             <TableRowColumn>One row of content</TableRowColumn>
