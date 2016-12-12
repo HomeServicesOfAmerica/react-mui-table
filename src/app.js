@@ -23,23 +23,22 @@ import Header from './components/Header';
 
 // example data
 const headerData = [
-	{ title: 'one' },
-	{ title: 'two' },
-	{ title: 'three' },
+	{ title: 'name' },
+	{ title: 'age' },
+	{ title: 'job' },
 ];
 
 const bodyData = [
-	{},
-	{},
+	{ name: 'bob', age: 30, job: 'engineer' },
+	{ name: 'jane', age: 25, job: 'designer' },
 ];
 
 
-class ReactMuiTable extends PureComponent {
+export default class ReactMuiTable extends PureComponent {
   render() {
     return (
       <Table>
-				{ Header(headerData) }
-
+				{ headerData ? Header(headerData) : '' }
         <TableBody>
           <TableRow>
             <TableRowColumn>One row of content</TableRowColumn>

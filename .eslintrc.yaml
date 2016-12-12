@@ -1,0 +1,142 @@
+---
+  extends: airbnb
+  parser: babel-eslint
+  plugins:
+    - flowtype
+  ecmaFeatures:
+    jsx: true
+  env:
+    es6: true
+    browser: true
+    node: true
+    jest: true
+  settings:
+    import/resolver: webpack
+    flowtype:
+      onlyFilesWithFlowAnnotation: true
+  globals:
+    google: false
+    twttr: true
+    Auth0: false
+    $: false
+    React$Element: false
+    React$Component: false
+    ReactClass: false
+  rules:
+    # Vanilla
+    class-methods-use-this: off
+    consistent-return: off
+    comma-dangle:
+      - error
+      - always-multiline
+    no-trailing-spaces:
+      - error
+      - skipBlankLines: true
+    no-confusing-arrow:
+      - error
+      - allowParens: true
+    block-spacing:
+      - error
+      - never
+    arrow-spacing:
+      - error
+      - before: true
+        after: true
+    object-curly-spacing:
+      - 2
+      - always
+    space-in-parens:
+      - error
+      - never
+    space-before-function-paren:
+      - error
+      - never
+    space-before-blocks:
+      - error
+      - always
+    keyword-spacing:
+      - error
+      - before: true
+        after: true
+    jsx-quotes: off
+    no-restricted-syntax:
+      - error
+      - WithStatement
+    quotes:
+      - error
+      - single
+      - avoidEscape: true
+        allowTemplateLiterals: true
+    global-require: off
+    no-irregular-whitespace: off
+    no-unused-expressions:
+      - error
+      - allowShortCircuit: true
+        allowTernary: true
+    no-underscore-dangle:
+      - error
+      - allowAfterThis: true
+        allow:
+          - _handleNestedListToggle
+          - _disableDisplay
+          - _DEPRECATION_NOTICE
+          - __IS_SMOOTH_SCROLLING
+          - __scroll__direction
+          - __CA_DELAYED_MODAL
+          - _wq
+          - __dataID__
+          - _fbq
+          - _hsq
+    no-param-reassign:
+      - error
+      - props: false
+
+    # React
+    react/jsx-closing-bracket-location: off
+    react/react-in-jsx-scope: off
+    react/forbid-prop-types:
+      - warn
+      - forbid:
+        - array
+        - object
+        - objectOf
+        - instanceOf
+        - oneOf
+        - node
+        - element
+        - symbol
+        - arrayOf
+        - shape
+        - bool
+        - string
+        - number
+        - node
+        - func
+        - any
+    react/prop-types: off
+    react/no-unused-prop-types: off
+    react/sort-comp: warn
+    react/no-string-refs: warn
+    react/jsx-filename-extension: off
+    react/prefer-stateless-function:
+      - error
+      - ignorePureComponents: true
+
+    # Import
+    import/no-unresolved: off
+    import/no-duplicates: off
+    import/no-named-as-default: off
+    import/no-absolute-path: off
+    import/no-named-as-default-member: off
+    import/no-extraneous-dependencies: off
+    import/prefer-default-export: off
+    import/export: off
+    import/extensions: off
+
+    # Flow
+    flowtype/define-flow-type: error
+    flowtype/use-flow-type: error
+
+    # JSX-A11y
+    jsx-a11y/no-static-element-interactions: off
+    jsx-a11y/tabindex-no-positive: off
