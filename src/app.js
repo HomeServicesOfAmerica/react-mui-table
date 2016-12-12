@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 
 import Header from './components/Header';
-// import Body from './components/Body';
+import Row from './components/Row';
 
 
 // needs to accept data for table header
@@ -23,14 +23,14 @@ import Header from './components/Header';
 
 // example data
 const headerData = [
-{ title: 'name' },
-{ title: 'age' },
-{ title: 'job' },
+	{ title: 'name' },
+	{ title: 'age' },
+	{ title: 'job' },
 ];
 
 const bodyData = [
-{ name: 'bob', age: 30, job: 'engineer' },
-{ name: 'jane', age: 25, job: 'designer' },
+	{ name: 'bob', age: 30, job: 'engineer' },
+	{ name: 'jane', age: 25, job: 'designer' },
 ];
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -39,10 +39,9 @@ export default class ReactMuiTable extends PureComponent {
     return (
       <Table>
 				{ headerData ? Header(headerData) : '' }
+
         <TableBody>
-          <TableRow>
-            <TableRowColumn>One row of content</TableRowColumn>
-          </TableRow>
+					{ bodyData.map((data, i) => <Row key={i} data={data} />) }
         </TableBody>
       </Table>
     );
