@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { TableHeaderColumn } from 'material-ui/Table';
 
-import Header from '../src/components/Header';
+import Header from '../../src/components/table/Header';
 
 const mockHeaderData = [
 	{ title: 'name' },

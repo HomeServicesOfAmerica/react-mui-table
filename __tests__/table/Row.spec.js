@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Row from '../src/components/Row';
+import Row from '../../src/components/table/Row';
 
 const mockRowData = {
   name: 'bob',
