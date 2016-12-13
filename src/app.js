@@ -12,16 +12,17 @@ import Header from './components/Header';
 import Row from './components/Row';
 
 
-// needs to accept data for table header
-
-// needs to accept data for table body
-
-// # of records to show per page
-
+// TODO:
+// conditionally accepts an array of data for table header
+// required to accept an array of data for table body
+// able to define pagination
+// styled appropriately
+// able to define # of records to show per page
 // sorting && filter TBD
+// able to fulfill parameters based on Mui Table Options
 
 
-// example data
+// example data for development
 const headerData = [
 	{ title: 'name' },
 	{ title: 'age' },
@@ -39,7 +40,6 @@ export default class ReactMuiTable extends PureComponent {
     return (
       <Table>
 				{ headerData ? Header(headerData) : '' }
-
         <TableBody displayRowCheckbox={true}>
 					{ bodyData.map((data, i) => <Row key={i} data={data} />) }
         </TableBody>
