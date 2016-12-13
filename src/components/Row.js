@@ -6,10 +6,10 @@ import {
 
 export default class Row extends PureComponent {
   render() {
-    let tableCols = [],
-     { data } = this.props;
+    const tableCols = [];
+    const { data, ...muiProps } = this.props;
 
-    for(let key in data) {
+    for (const key in data) {
       tableCols.push(
         <TableRowColumn key={key} id={key}>
           {data[key]}
@@ -19,6 +19,7 @@ export default class Row extends PureComponent {
 
     return (
       <TableRow>
+        {muiProps.children[0]}
         {tableCols}
       </TableRow>
     );

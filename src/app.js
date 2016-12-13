@@ -40,7 +40,7 @@ export default class ReactMuiTable extends PureComponent {
       <Table>
 				{ headerData ? Header(headerData) : '' }
 
-        <TableBody>
+        <TableBody displayRowCheckbox={true}>
 					{ bodyData.map((data, i) => <Row key={i} data={data} />) }
         </TableBody>
       </Table>
