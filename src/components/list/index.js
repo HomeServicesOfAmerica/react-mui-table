@@ -17,7 +17,6 @@ const mockHeaderData = [
 	{ title: 'job' },
 ];
 // const mockOptions = {
-//	showMasthead: true,
 // 	showHeaderCheckBox: true,
 // 	showRowCheckBox: true,
 //  initialRowsPerpage: 10,
@@ -28,18 +27,56 @@ export default class ReactMuiTable extends PureComponent {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			numRows: 15,
+			currentPage: 1,
+		};
+
 		this.parseBodyData = this.parseBodyData.bind(this);
+		this.nextPage = this.nextPage.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+		this.changeNumRows = this.changeNumRows.bind(this);
 	}
 
 	parseBodyData(data) {
 		return data.map(node => selectn('node', node));
 	}
 
+	nextPage(pageNum) {
+    if (pageNum !== this.state.currentPage) {
+			// TODO: run func to update query for new page
+
+      this.setState ({
+        currentPage: this.state.currentPage++
+      });
+    }
+  }
+
+  previousPage(pageNum) {
+    if (pageNum !== this.state.currentPage) {
+			// TODO: run func to update query for new page
+
+      this.setState ({
+        currentPage: this.state.currentPage--
+      });
+    }
+  }
+
+	changeNumRows(numRows) {
+		if(numRows !== this.state.numRows) {
+			// TODO: run func to update query for new numRows
+
+			this.setState({
+				numRows: numRows
+			});
+		}
+	}
+
   render() {
 		// While developing, use mock data until figuring out a better way to do this
 		let headerData = !this.props.headerData ? mockHeaderData : this.props.headerData;
 		let bodyData = !this.props.bodyData ? this.parseBodyData(mockBodyData.data.viewer.users.edges) : this.parseBodyData(this.props.bodyData);
-		let paginationData = mockBodyData.data.viewer.users.pageInfo;
+		let pageInfo = mockBodyData.data.viewer.users.pageInfo;
 
     return (
 			<MuiThemeProvider>
@@ -54,7 +91,12 @@ export default class ReactMuiTable extends PureComponent {
 							</span>
 						)}
 		        <Pagination
-							data={paginationData}/>
+							currentPage={this.state.currentPage}
+							numRows={this.state.numRows}
+							pageInfo={pageInfo}
+							changeNumRows={this.changeNumRows}
+							nextPage={this.nextPage}
+							previousPage={this.previousPage} />
 		      </List>
 				</Paper>
 			</MuiThemeProvider>
