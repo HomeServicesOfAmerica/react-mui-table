@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+// import { StyleSheet, css } from 'aphrodite';
 import { ListItem } from 'material-ui/List';
+import { Row, Col as Column } from 'react-flexbox-grid';
 
 import RowsPerPage from './RowsPerPage';
 
 
-const styles = StyleSheet.create({
-  pagination: {
-  },
-});
+// const styles = StyleSheet.create({
+//   pagination: {
+//   },
+// });
 
 class Pagination extends PureComponent {
   constructor(props) {
@@ -40,8 +41,15 @@ class Pagination extends PureComponent {
 
   render() {
     return (
-      <ListItem className={css(styles.pagination)}>
-        <RowsPerPage />
+      <ListItem>
+        <Row>
+          <Column
+            xsOffset={9}
+            xs={3}>
+            <RowsPerPage />
+          </Column>
+
+        </Row>
       </ListItem>
     );
   }

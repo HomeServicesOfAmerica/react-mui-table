@@ -39,6 +39,7 @@ export default class ReactMuiTable extends PureComponent {
 		// While developing, use mock data until figuring out a better way to do this
 		let headerData = !this.props.headerData ? mockHeaderData : this.props.headerData;
 		let bodyData = !this.props.bodyData ? this.parseBodyData(mockBodyData.data.viewer.users.edges) : this.parseBodyData(this.props.bodyData);
+		let paginationData = mockBodyData.data.viewer.users.pageInfo;
 
     return (
 			<MuiThemeProvider>
@@ -52,7 +53,8 @@ export default class ReactMuiTable extends PureComponent {
 								<Divider />
 							</span>
 						)}
-		        <Pagination />
+		        <Pagination
+							data={paginationData}/>
 		      </List>
 				</Paper>
 			</MuiThemeProvider>
