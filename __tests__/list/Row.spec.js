@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Row from '../../src/components/table/Row';
+import Row from '../../src/components/list/ListRow';
 
 const mockRowData = {
   name: 'bob',
@@ -10,19 +10,13 @@ const mockRowData = {
   job: 'engineer',
 };
 
-const muiProps = {
-  children: [{}]
-};
-
 const RowComponent =
   <MuiThemeProvider>
-    <Row data={mockRowData}>
-      {muiProps.children[0]}
-    </Row>
+    <Row data={mockRowData} />
   </MuiThemeProvider>;
 
 describe('Row', () => {
-  it('renders a table row component', () => {
+  it('renders a list row component', () => {
     mount(RowComponent);
   });
 });

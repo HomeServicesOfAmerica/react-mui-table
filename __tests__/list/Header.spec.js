@@ -1,9 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { TableHeaderColumn } from 'material-ui/Table';
 
-import Header from '../../src/components/table/Header';
+import Header from '../../src/components/list/Header';
 
 const mockHeaderData = [
 	{ title: 'name' },

@@ -1,7 +1,11 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Table from './components/table';
+import Paper from 'material-ui/Paper';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import List from './components/list';
+
+injectTapEventPlugin();
 
 // TODO:
 // conditionally accepts an array of data for table header
@@ -14,9 +18,11 @@ import Table from './components/table';
 
 
 // Render for local dev validation
-render (
+render(
 	<MuiThemeProvider>
-		<Table />
+		<Paper zDepth={2}>
+			<List />
+		</Paper>
 	</MuiThemeProvider>,
 	document.getElementById('app')
 );

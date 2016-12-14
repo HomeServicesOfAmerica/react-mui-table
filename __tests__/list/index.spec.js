@@ -2,16 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Table from '../../src/components/table';
+import List from '../../src/components/list';
 
-const HeaderComponent =
+const ListComponent =
   <MuiThemeProvider>
-    <Table/>
+    <List />
   </MuiThemeProvider>;
 
 
-describe('Table', () => {
-  it('renders the table', () => {
-    mount(HeaderComponent);
+describe('List', () => {
+  it('renders the list', () => {
+    mount(ListComponent);
   });
 });

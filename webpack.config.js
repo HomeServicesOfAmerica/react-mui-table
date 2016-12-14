@@ -23,15 +23,19 @@ module.exports = {
   	loaders: [
 	  {
 	  	test: /\.css$/,
-	  	loader: 'style!css'
+	  	loader: 'style!css?modules',
+      include: /flexboxgrid/
 	  },
-	  {
-	  	test: /\.scss$/,
-      loaders: [ 'style', 'css?sourceMap', 'sass?sourceMap' ]
-	  },
+    {
+      test: /\.css$/,
+      include: path.join(__dirname, './src'),
+      loader: 'style!css!postcss',
+      exclude: /flexboxgrid/,
+    },
 	  {
 	  	test: /\.js$/,
-	  	loader: 'babel'
+	  	loader: 'babel',
+      exclude: path.join(__dirname, './node_modules')
 	  },
 	  {
 	  	test: /\.(png|jpg|gif|woff|woff2)$/,

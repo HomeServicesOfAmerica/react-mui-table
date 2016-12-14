@@ -1,14 +1,10 @@
 import React, { PureComponent } from 'react';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import { List } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 
 import Header from './Header';
-import Row from './Row';
-
+import ListRow from './ListRow';
+import Pagination from '../pagination';
 
 // example data for development
 const headerData = [
@@ -26,18 +22,24 @@ const bodyData = [
 //	showMasthead: true,
 // 	showHeaderCheckBox: true,
 // 	showRowCheckBox: true,
+//  initialRowsPerpage: 10,
 // };
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class ReactMuiTable extends PureComponent {
   render() {
     return (
-      <Table>
-				{ headerData ? Header(headerData) : '' }
-        <TableBody displayRowCheckbox={true}>
-					{ bodyData.map((data, i) => <Row key={i} data={data} />) }
-        </TableBody>
-      </Table>
+      <List>
+				{headerData ? Header(headerData) : ''}
+				{headerData ? <Divider /> : ''}
+				{bodyData.map((data, i) =>
+					<span key={i}>
+						<ListRow data={data} />
+						<Divider />
+					</span>
+				)}
+        <Pagination />
+      </List>
     );
   }
 }
