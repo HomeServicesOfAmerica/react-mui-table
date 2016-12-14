@@ -1,24 +1,22 @@
 import React, { PureComponent } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import selectn from 'selectn';
 
 import Header from './Header';
 import ListRow from './ListRow';
 import Pagination from '../pagination';
 
 // example data for development
-const headerData = [
+import mockBodyData from '../../data/userNames.json';
+const mockHeaderData = [
 	{ title: 'name' },
 	{ title: 'age' },
 	{ title: 'job' },
 ];
-
-const bodyData = [
-	{ name: 'bob', age: 30, job: 'engineer' },
-	{ name: 'jane', age: 25, job: 'designer' },
-];
-
-// const options = {
+// const mockOptions = {
 //	showMasthead: true,
 // 	showHeaderCheckBox: true,
 // 	showRowCheckBox: true,
@@ -27,19 +25,37 @@ const bodyData = [
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class ReactMuiTable extends PureComponent {
+	constructor(props) {
+		super(props);
+
+		this.parseBodyData = this.parseBodyData.bind(this);
+	}
+
+	parseBodyData(bodyData) {
+		return bodyData.data.viewer.users.edges.map(node => selectn('node', node));
+	}
+
   render() {
+		// While developing, use mock data until figuring out a better way to do this
+		let headerData = !this.props.headerData ? mockHeaderData : this.props.headerData;
+		let bodyData = !this.props.bodyData ? this.parseBodyData(mockBodyData) : this.parseBodyData(this.props.bodyData);
+
     return (
-      <List>
-				{headerData ? Header(headerData) : ''}
-				{headerData ? <Divider /> : ''}
-				{bodyData.map((data, i) =>
-					<span key={i}>
-						<ListRow data={data} />
+			<MuiThemeProvider>
+				<Paper zDepth={2}>
+		      <List>
+						{Header(headerData)}
 						<Divider />
-					</span>
-				)}
-        <Pagination />
-      </List>
+						{bodyData.map((data, i) =>
+							<span key={i}>
+								<ListRow data={data} />
+								<Divider />
+							</span>
+						)}
+		        <Pagination />
+		      </List>
+				</Paper>
+			</MuiThemeProvider>
     );
   }
 }

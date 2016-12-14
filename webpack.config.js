@@ -37,6 +37,10 @@ module.exports = {
 	  	loader: 'babel',
       exclude: path.join(__dirname, './node_modules')
 	  },
+    {
+      test: /\.json$/,
+      loader: 'json',
+    },    
 	  {
 	  	test: /\.(png|jpg|gif|woff|woff2)$/,
 	  	loader: 'url-loader?limit=8192'

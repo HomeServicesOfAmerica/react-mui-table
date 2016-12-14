@@ -10,24 +10,32 @@ const styles = StyleSheet.create({
   },
 });
 
-// const initialState = {
-//   currentPage: 1
-// };
-
 class Pagination extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentPage: 1
+    };
 
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
   }
 
-  nextPage() {
-
+  nextPage(pageNum) {
+    if (pageNum !== this.state.currentPage) {
+      // this.setState ({
+      //   currentPage: this.state.currentPage++
+      // });
+    }
   }
 
-  previousPage() {
-
+  previousPage(pageNum) {
+    if (pageNum !== this.state.currentPage) {
+      // this.setState ({
+      //   currentPage: this.state.currentPage--
+      // });
+    }
   }
 
   render() {

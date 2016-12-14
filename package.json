@@ -19,8 +19,8 @@
   "author": "Krista Goralczyk",
   "license": "MIT",
   "dependencies": {
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   },
   "devDependencies": {
     "aphrodite": "^1.1.0",
@@ -47,12 +47,13 @@
     "flexboxgrid": "^6.3.1",
     "html-webpack-plugin": "^2.24.1",
     "jest": "^17.0.3",
+    "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "material-ui": "^0.16.5",
+    "material-ui": "^0.15.2",
     "react-addons-test-utils": "^15.4.1",
     "react-flexbox-grid": "^0.10.2",
-    "react-tap-event-plugin": "^2.0.1",
+    "react-tap-event-plugin": "2.0.0",
     "selectn": "^1.1.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

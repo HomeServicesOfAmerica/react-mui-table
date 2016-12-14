@@ -1,7 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import List from './components/list';
 
@@ -19,10 +17,6 @@ injectTapEventPlugin();
 
 // Render for local dev validation
 render(
-	<MuiThemeProvider>
-		<Paper zDepth={2}>
-			<List />
-		</Paper>
-	</MuiThemeProvider>,
+	<List />,
 	document.getElementById('app')
 );
