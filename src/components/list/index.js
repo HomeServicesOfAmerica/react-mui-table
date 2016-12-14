@@ -31,14 +31,14 @@ export default class ReactMuiTable extends PureComponent {
 		this.parseBodyData = this.parseBodyData.bind(this);
 	}
 
-	parseBodyData(bodyData) {
-		return bodyData.data.viewer.users.edges.map(node => selectn('node', node));
+	parseBodyData(data) {
+		return data.map(node => selectn('node', node));
 	}
 
   render() {
 		// While developing, use mock data until figuring out a better way to do this
 		let headerData = !this.props.headerData ? mockHeaderData : this.props.headerData;
-		let bodyData = !this.props.bodyData ? this.parseBodyData(mockBodyData) : this.parseBodyData(this.props.bodyData);
+		let bodyData = !this.props.bodyData ? this.parseBodyData(mockBodyData.data.viewer.users.edges) : this.parseBodyData(this.props.bodyData);
 
     return (
 			<MuiThemeProvider>
