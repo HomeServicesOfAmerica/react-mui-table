@@ -15,7 +15,7 @@ class Pagination extends PureComponent {
             xsOffset={8}
             xs={2}>
             <RowsPerPage
-              changeNumRows={this.props.changeNumRows}
+              handleNumRows={this.props.handleNumRows}
               numRows={this.props.numRows}/>
           </Column>
 

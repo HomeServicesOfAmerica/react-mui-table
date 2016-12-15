@@ -9,8 +9,8 @@ class RowsPerPage extends Component {
     this.state = {
       rowOptions: [
         15,
-        30,
-        80,
+        25,
+        50,
       ],
     };
   }
@@ -22,7 +22,7 @@ class RowsPerPage extends Component {
         <DropDownMenu>
           {this.state.rowOptions.map(opt =>
             <MenuItem
-              onClick={this.props.changeNumRows.bind(null, opt)}
+              onClick={this.props.handleNumRows.bind(null, opt)}
               key={opt}
               value={opt}
               primaryText={opt.toString()} />

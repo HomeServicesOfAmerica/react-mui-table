@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import { Row, Col as Column } from 'react-flexbox-grid';
 import { StyleSheet, css } from 'aphrodite';
 import { ListItem } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 
 import ListCheckbox from './ListCheckbox';
 import ListAction from './ListAction';
+import ListAvatar from './ListAvatar';
 
 const styles = StyleSheet.create({
   content: {
@@ -19,24 +21,38 @@ export default class ListRow extends PureComponent {
 
     // eslint-disable-next-line guard-for-in
     for (const key in data) {
-      rowColumns.push(
-        <Column
-          key={key}
-          className={css(styles.content)}
-          xs>
-          {data[key]}
-        </Column>
-      );
+      if(key!=='avatar') {
+        rowColumns.push(
+          <Column
+            key={key}
+            className={css(styles.content)}
+            xs>
+            {data[key]}
+          </Column>
+        );
+      } else {
+        rowColumns.push(
+          <Column
+            key={key}
+            className={css(styles.content)}
+            xs>
+            <ListAvatar avatar={data[key]} />
+          </Column>
+        );
+      }
     }
 
     return (
-      <ListItem>
-        <Row>
-          <ListCheckbox />
-          {rowColumns}
-          <ListAction />
-        </Row>
-      </ListItem>
+      <span>
+        <ListItem>
+          <Row>
+            <ListCheckbox />
+            {rowColumns}
+            <ListAction />
+          </Row>
+        </ListItem>
+        <Divider />
+      </span>
     );
   }
 }

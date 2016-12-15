@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 
 import Header from './Header';
 import ListRow from './ListRow';
 import Masthead from '../masthead';
+import NoResults from './NoResults';
 import Pagination from '../pagination';
 import Search from '../search';
 
@@ -29,6 +29,7 @@ const mockBodyData = [
 	{
 		firstName: 'guy',
 		lastName: 'fieri',
+		avatar: '',
 	},
 ];
 
@@ -42,6 +43,12 @@ const mockHeaderData = [
 	{
 		label: 'last name',
 		key: 'lastName',
+		sortable: true,
+		searchable: true,
+	},
+	{
+		label: 'Photo',
+		key: 'photo',
 		sortable: true,
 		searchable: true,
 	},
@@ -69,7 +76,7 @@ export default class ReactMuiTable extends PureComponent {
 
 		this.handleNextPage = this.handleNextPage.bind(this);
     this.handlePreviousPage = this.handlePreviousPage.bind(this);
-		this.changeNumRows = this.changeNumRows.bind(this);
+		this.handleNumRows = this.handleNumRows.bind(this);
 		this.checkAllRows = this.checkAllRows.bind(this);
 		this.uncheckAllRows = this.uncheckAllRows.bind(this);
 		this.checkRow = this.checkRow.bind(this);
@@ -99,22 +106,31 @@ export default class ReactMuiTable extends PureComponent {
 		}
   }
 
-	changeNumRows(numRows) {
-		if(numRows !== this.state.numRows) {
-			// TODO: run func from props to update query for new numRows
+	handleNumRows(newNumRows) {
+		const { changeNumRows } = this.props;
+		const { numRows } = this.state;
 
-			this.setState({
-				numRows: numRows
-			});
+		if(changeNumRows) {
+			if(newNumRows !== numRows) {
+				// TODO: run func from props to update query for new numRows
+				this.setState({
+					numRows: numRows
+				});
+			}
+		} else {
+			console.warn('There is no changeNumRows function passed down as props.');
 		}
 	}
 
 	checkAllRows() {
+		// TODO: add all rows to this.state.itemsSelected
 		return 'check all rows';
 	}
 
 	uncheckAllRows() {
-		return 'uncheck all rows';
+		this.setState({
+			itemsSelected: []
+		});
 	}
 
 	checkRow () {
@@ -126,17 +142,16 @@ export default class ReactMuiTable extends PureComponent {
 	}
 
 	deleteRecords() {
-		const { deleteConfirmation } = this.props;
+		const { handleDelete } = this.props;
 		const { itemsSelected } = this.state;
 
 		if(deleteConfirmation) {
-			// expecting confirmation of delete records to pass new set of props down for table data
-			deleteConfirmation(itemsSelected);
+			handleDelete(itemsSelected);
 
 			// flush out itemsSelected from local state
 			this.setState({ itemsSelected: [] });
 		} else {
-			console.warn('There is no deleteConfirmation function passed down as props.');
+			console.warn('There is no handleDelete function passed down as props.');
 		}
 	}
 
@@ -154,17 +169,14 @@ export default class ReactMuiTable extends PureComponent {
 			      <List>
 							{Masthead({ itemsSelected: this.state.itemsSelected, deleteRecords: this.deleteRecords })}
 							{Header(headerData)}
-							{bodyData.map((data, i) =>
-								<span key={i}>
-									<ListRow data={data} />
-									<Divider />
-								</span>
-							)}
+
+							{bodyData.length ? bodyData.map((data, i) => <ListRow key={i} data={data} />) : <NoResults />}
+
 			        <Pagination
 								currentPage={this.state.currentPage}
 								numRows={this.state.numRows}
 								pageData={pageData}
-								changeNumRows={this.changeNumRows}
+								handleNumRows={this.handleNumRows}
 								handleNextPage={this.handleNextPage}
 								handlePreviousPage={this.handlePreviousPage} />
 			      </List>
