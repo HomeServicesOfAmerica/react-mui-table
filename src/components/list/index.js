@@ -47,8 +47,8 @@ const mockHeaderData = [
 const mockPageData = [
 	{ 'hasNextPage': true },
 	{ 'hasPreviousPage': false },
-	{ 'startCursor': 'YXJyYXljb25uZWN0aW9uJDU3MSQw' },
-	{ 'endCursor': 'YXJyYXljb25uZWN0aW9uJDUwMyQxNA==' },
+	// { 'startCursor': 'YXJyYXljb25uZWN0aW9uJDU3MSQw' },
+	// { 'endCursor': 'YXJyYXljb25uZWN0aW9uJDUwMyQxNA==' },
 ];
 
 
@@ -134,28 +134,30 @@ export default class ReactMuiTable extends PureComponent {
 
     return (
 			<MuiThemeProvider>
-				<Paper zDepth={2}>
-		      <List>
-						{Search({ tableName: this.state.tableName })}
-						{Masthead({ itemsSelected: this.state.itemsSelected })}
-						{Header(headerData)}
+				<span>
+					{Search({ tableName: this.state.tableName })}
 
-						{bodyData.map((data, i) =>
-							<span key={i}>
-								<ListRow data={data} />
-								<Divider />
-							</span>
-						)}
+					<Paper zDepth={2}>
+			      <List>
+							{Masthead({ itemsSelected: this.state.itemsSelected })}
+							{Header(headerData)}
+							{bodyData.map((data, i) =>
+								<span key={i}>
+									<ListRow data={data} />
+									<Divider />
+								</span>
+							)}
 
-		        <Pagination
-							currentPage={this.state.currentPage}
-							numRows={this.state.numRows}
-							pageData={pageData}
-							changeNumRows={this.changeNumRows}
-							nextPage={this.nextPage}
-							previousPage={this.previousPage} />
-		      </List>
-				</Paper>
+			        <Pagination
+								currentPage={this.state.currentPage}
+								numRows={this.state.numRows}
+								pageData={pageData}
+								changeNumRows={this.changeNumRows}
+								nextPage={this.nextPage}
+								previousPage={this.previousPage} />
+			      </List>
+					</Paper>
+				</span>
 			</MuiThemeProvider>
     );
   }
