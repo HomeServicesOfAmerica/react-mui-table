@@ -8,6 +8,7 @@ import Header from './Header';
 import ListRow from './ListRow';
 import Masthead from '../masthead';
 import Pagination from '../pagination';
+import Search from '../search';
 
 const mockBodyData = [
 	{
@@ -57,6 +58,7 @@ export default class ReactMuiTable extends PureComponent {
 		super(props);
 
 		this.state = {
+			tableName: 'Users',
 			numRows: 15,
 			currentPage: 1,
 			itemsSelected: [],
@@ -121,10 +123,11 @@ export default class ReactMuiTable extends PureComponent {
 	deleteRecords() {
 		// TODO: trigger function that pops up confirmation modal, but doesnt actually delete
 		// will need a callback to update props for row data after delete for a re-render
+		return 'confirm delete records';
 	}
 
   render() {
-		// While developing, use mock data until figuring out a better way to do this
+		// While developing, use mock data until figuring out a better way to handle dev vrs prod
 		let headerData = !this.props.headerData ? mockHeaderData : this.props.headerData;
 		let bodyData = !this.props.bodyData ? mockBodyData : this.props.bodyData;
 		let pageData = !this.props.pageData ? mockPageData : this.props.pageData;
@@ -133,8 +136,8 @@ export default class ReactMuiTable extends PureComponent {
 			<MuiThemeProvider>
 				<Paper zDepth={2}>
 		      <List>
-						{/* search goes here */}
-						{Masthead({itemsSelected: this.state.itemsSelected})}
+						{Search({ tableName: this.state.tableName })}
+						{Masthead({ itemsSelected: this.state.itemsSelected })}
 						{Header(headerData)}
 
 						{bodyData.map((data, i) =>
