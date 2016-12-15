@@ -5,6 +5,6 @@ import FallbackIcon from 'material-ui/svg-icons/social/person';
 const ListAvatar = props =>
   <Avatar
     src={props.avatar ? props.avatar : ''}
-    icon={!props.avatar ? <FallbackIcon /> : ''} />;
+    icon={!props.avatar ? <FallbackIcon /> : null} />;
 
 export default ListAvatar;
