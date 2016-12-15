@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 
 import Header from './Header';
 import ListRow from './ListRow';
+import Masthead from '../masthead';
 import Pagination from '../pagination';
 
 // example data for development
@@ -58,6 +59,7 @@ export default class ReactMuiTable extends PureComponent {
 		this.state = {
 			numRows: 15,
 			currentPage: 1,
+			itemsSelected: [],
 		};
 
 		this.nextPage = this.nextPage.bind(this);
@@ -105,6 +107,7 @@ export default class ReactMuiTable extends PureComponent {
 			<MuiThemeProvider>
 				<Paper zDepth={2}>
 		      <List>
+						{Masthead({itemsSelected: this.state.itemsSelected})}
 						{Header(headerData)}
 
 						{bodyData.map((data, i) =>
