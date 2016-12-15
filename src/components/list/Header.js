@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: '18px',
     fontWeight: 'normal',
-    paddingBottom: '15px',
+    borderBottom: '1px solid rgb(224, 224, 224)',
   },
 });
 
@@ -19,12 +19,9 @@ const Header = props =>
   <ListItem className={css(styles.content)}>
     <Row>
       <ListCheckbox />
-      
       {props.map(data =>
-        <Column
-          key={data.title}
-          xs>
-          {data.title}
+        <Column key={data.key} xs>
+          {data.label}
         </Column>
       )}
     </Row>
