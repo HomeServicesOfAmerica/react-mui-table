@@ -8,7 +8,8 @@ class Delete extends PureComponent {
     return (
       <ListItem>
         Delete
-        <DeleteIcon />
+        <DeleteIcon
+          onClick={this.props.deleteRecords} />
       </ListItem>
     );
   }

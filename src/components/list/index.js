@@ -14,14 +14,17 @@ const mockBodyData = [
 	{
 		firstName: 'bob',
 		lastName: 'ross',
+		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
 	},
 	{
 		firstName: 'ragnar',
-		lastName: 'lodbrock',
+		lastName: 'lodbrok',
+		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
 	},
 	{
 		firstName: 'rachel',
 		lastName: 'rae',
+		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
 	},
 	{
 		firstName: 'guy',
@@ -64,8 +67,8 @@ export default class ReactMuiTable extends PureComponent {
 			itemsSelected: [],
 		};
 
-		this.nextPage = this.nextPage.bind(this);
-    this.previousPage = this.previousPage.bind(this);
+		this.handleNextPage = this.handleNextPage.bind(this);
+    this.handlePreviousPage = this.handlePreviousPage.bind(this);
 		this.changeNumRows = this.changeNumRows.bind(this);
 		this.checkAllRows = this.checkAllRows.bind(this);
 		this.uncheckAllRows = this.uncheckAllRows.bind(this);
@@ -74,24 +77,26 @@ export default class ReactMuiTable extends PureComponent {
 		this.deleteRecords = this.deleteRecords.bind(this);
 	}
 
-	nextPage(pageNum) {
-    if (pageNum !== this.state.currentPage) {
-			// TODO: run func to update query for new page
+	handleNextPage() {
+		const { nextPage, pageData } = this.props;
 
-      this.setState ({
-        currentPage: this.state.currentPage++
-      });
-    }
+		if(nextPage) {
+			// TODO: What data needs passed here?
+			pageData.hasNextPage ? nextPage() : '';
+		} else {
+			console.warn('There is no nextPage function passed down as props.');
+		}
   }
 
-  previousPage(pageNum) {
-    if (pageNum !== this.state.currentPage) {
-			// TODO: run func from expected props to update query for new page
+  handlePreviousPage(pageNum) {
+		const { previousPage, pageData } = this.props;
 
-      this.setState ({
-        currentPage: this.state.currentPage--
-      });
-    }
+		if(previousPage) {
+			// TODO: What data needs passed here?
+			pageData.hasPreviousPage ? previousPage() : '';
+		} else {
+			console.warn('There is no previousPage function passed down as props.');
+		}
   }
 
 	changeNumRows(numRows) {
@@ -121,9 +126,18 @@ export default class ReactMuiTable extends PureComponent {
 	}
 
 	deleteRecords() {
-		// TODO: trigger function that pops up confirmation modal, but doesnt actually delete
-		// will need a callback to update props for row data after delete for a re-render
-		return 'confirm delete records';
+		const { deleteConfirmation } = this.props;
+		const { itemsSelected } = this.state;
+
+		if(deleteConfirmation) {
+			// expecting confirmation of delete records to pass new set of props down for table data
+			deleteConfirmation(itemsSelected);
+
+			// flush out itemsSelected from local state
+			this.setState({ itemsSelected: [] });
+		} else {
+			console.warn('There is no deleteConfirmation function passed down as props.');
+		}
 	}
 
   render() {
@@ -136,10 +150,9 @@ export default class ReactMuiTable extends PureComponent {
 			<MuiThemeProvider>
 				<span>
 					{Search({ tableName: this.state.tableName })}
-
 					<Paper zDepth={2}>
 			      <List>
-							{Masthead({ itemsSelected: this.state.itemsSelected })}
+							{Masthead({ itemsSelected: this.state.itemsSelected, deleteRecords: this.deleteRecords })}
 							{Header(headerData)}
 							{bodyData.map((data, i) =>
 								<span key={i}>
@@ -147,14 +160,13 @@ export default class ReactMuiTable extends PureComponent {
 									<Divider />
 								</span>
 							)}
-
 			        <Pagination
 								currentPage={this.state.currentPage}
 								numRows={this.state.numRows}
 								pageData={pageData}
 								changeNumRows={this.changeNumRows}
-								nextPage={this.nextPage}
-								previousPage={this.previousPage} />
+								handleNextPage={this.handleNextPage}
+								handlePreviousPage={this.handlePreviousPage} />
 			      </List>
 					</Paper>
 				</span>

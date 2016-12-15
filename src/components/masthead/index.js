@@ -13,6 +13,6 @@ const styles = StyleSheet.create({
 const Masthead = props =>
   !props.itemsSelected.length ?
     <Filter itemsSelected={props.itemsSelected} /> :
-    <Delete itemsSelected={props.itemsSelected} />;
+    <Delete itemsSelected={props.itemsSelected} deleteRecords={props.deleteRecords} />;
 
 export default Masthead;

@@ -4,6 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { ListItem } from 'material-ui/List';
 
 import ListCheckbox from './ListCheckbox';
+import ListAction from './ListAction';
 
 const styles = StyleSheet.create({
   content: {
@@ -33,6 +34,7 @@ export default class ListRow extends PureComponent {
         <Row>
           <ListCheckbox />
           {rowColumns}
+          <ListAction />
         </Row>
       </ListItem>
     );

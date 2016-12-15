@@ -22,9 +22,9 @@ class Pagination extends PureComponent {
           <Column
             xs={2}>
             <ArrowLeft
-              onClick={this.props.previousPage} />
+              onClick={this.props.handlePreviousPage} />
             <ArrowRight
-              onClick={this.props.nextPage} />
+              onClick={this.props.handleNextPage} />
           </Column>
         </Row>
       </ListItem>
