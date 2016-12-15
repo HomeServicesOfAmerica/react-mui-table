@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
+import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 
 class Filter extends PureComponent {
   render() {
     return (
       <span>
-        Filter view
+        <FilterIcon />
+        FILTER
       </span>
     );
   }

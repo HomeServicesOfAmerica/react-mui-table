@@ -9,7 +9,6 @@ import ListRow from './ListRow';
 import Masthead from '../masthead';
 import Pagination from '../pagination';
 
-// example data for development
 const mockBodyData = [
 	{
 		firstName: 'bob',
@@ -56,6 +55,7 @@ const mockPageData = [
 export default class ReactMuiTable extends PureComponent {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			numRows: 15,
 			currentPage: 1,
@@ -65,6 +65,11 @@ export default class ReactMuiTable extends PureComponent {
 		this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
 		this.changeNumRows = this.changeNumRows.bind(this);
+		this.checkAllRows = this.checkAllRows.bind(this);
+		this.uncheckAllRows = this.uncheckAllRows.bind(this);
+		this.checkRow = this.checkRow.bind(this);
+		this.uncheckRow = this.uncheckRow.bind(this);
+		this.deleteRecords = this.deleteRecords.bind(this);
 	}
 
 	nextPage(pageNum) {
@@ -97,6 +102,27 @@ export default class ReactMuiTable extends PureComponent {
 		}
 	}
 
+	checkAllRows() {
+		return 'check all rows';
+	}
+
+	uncheckAllRows() {
+		return 'uncheck all rows';
+	}
+
+	checkRow () {
+		return 'check single row';
+	}
+
+	uncheckRow() {
+		return 'uncheck single row';
+	}
+
+	deleteRecords() {
+		// TODO: trigger function that pops up confirmation modal, but doesnt actually delete
+		// will need a callback to update props for row data after delete for a re-render
+	}
+
   render() {
 		// While developing, use mock data until figuring out a better way to do this
 		let headerData = !this.props.headerData ? mockHeaderData : this.props.headerData;
@@ -107,6 +133,7 @@ export default class ReactMuiTable extends PureComponent {
 			<MuiThemeProvider>
 				<Paper zDepth={2}>
 		      <List>
+						{/* search goes here */}
 						{Masthead({itemsSelected: this.state.itemsSelected})}
 						{Header(headerData)}
 
@@ -116,6 +143,7 @@ export default class ReactMuiTable extends PureComponent {
 								<Divider />
 							</span>
 						)}
+
 		        <Pagination
 							currentPage={this.state.currentPage}
 							numRows={this.state.numRows}
