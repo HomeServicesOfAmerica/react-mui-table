@@ -22,8 +22,8 @@ const mockBodyData = [
 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
 	},
 	{
-		firstName: 'rachel',
-		lastName: 'rae',
+		firstName: 'rachael',
+		lastName: 'ray',
 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
 	},
 	{
@@ -95,7 +95,7 @@ export default class ReactMuiTable extends PureComponent {
 		}
   }
 
-  handlePreviousPage(pageNum) {
+  handlePreviousPage() {
 		const { previousPage, pageData } = this.props;
 
 		if(previousPage) {
