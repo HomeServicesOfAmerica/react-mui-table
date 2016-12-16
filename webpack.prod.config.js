@@ -8,12 +8,6 @@ module.exports = {
     filename: "bundle.js",
     path: __dirname + "/dist"
   },
-  devServer: {
-  	contentBase: './src/',
-  	port: 5001,
-  	hot: true
-  },
-  devtool: 'source-map',
   plugins: [new HtmlWebpackPlugin({
     title: 'React Material List',
     template: path.join(__dirname, './src/index.html'),

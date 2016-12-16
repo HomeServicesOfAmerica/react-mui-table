@@ -15,16 +15,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const Header = props =>
+const ListColumns = props =>
   <ListItem className={css(styles.content)}>
     <Row>
       <ListCheckbox />
-      {props.map(data =>
-        <Column key={data.key} xs>
-          {data.label}
+      {props.columns.map(column =>
+        <Column key={column.key} xs>
+          {column.label}
         </Column>
       )}
     </Row>
   </ListItem>;
 
-export default Header;
+export default ListColumns;

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 const Search = props =>
   <Paper zDepth={2} className={css(styles.search)}>
     <SearchIcon />
-    <TextField hintText={`Search All ${props.tableName}`} />
+    <TextField hintText={`Search All ${props.tableName}`} onChange={props.handleSearch} />
   </Paper>;
 
 export default Search;

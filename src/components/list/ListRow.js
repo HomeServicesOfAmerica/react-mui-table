@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
 export default class ListRow extends PureComponent {
   render() {
     const rowColumns = [];
-    const { data } = this.props;
+    const { data, actions } = this.props;
+
+    console.log('actions? ', actions);
 
     // eslint-disable-next-line guard-for-in
     for (const key in data) {
