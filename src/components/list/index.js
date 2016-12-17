@@ -11,28 +11,28 @@ import NoResults from './NoResults';
 import Pagination from '../pagination';
 import Search from '../search';
 
-// const items = [
-// 	{
-// 		firstName: 'bob',
-// 		lastName: 'ross',
-// 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
-// 	},
-// 	{
-// 		firstName: 'ragnar',
-// 		lastName: 'lodbrok',
-// 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
-// 	},
-// 	{
-// 		firstName: 'rachael',
-// 		lastName: 'ray',
-// 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
-// 	},
-// 	{
-// 		firstName: 'guy',
-// 		lastName: 'fieri',
-// 		avatar: '',
-// 	},
-// ];
+const items = [
+	{
+		firstName: 'bob',
+		lastName: 'ross',
+		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
+	},
+	{
+		firstName: 'ragnar',
+		lastName: 'lodbrok',
+		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
+	},
+	{
+		firstName: 'rachael',
+		lastName: 'ray',
+		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
+	},
+	{
+		firstName: 'guy',
+		lastName: 'fieri',
+		avatar: '',
+	},
+];
 //
 // const columns = [
 // 	{
@@ -217,7 +217,7 @@ export default class ReactMuiTable extends PureComponent {
 								handleSort: selectn('props.handleSort', this) || this.warning('handleSort function'),
 							})}
 
-							{selectn('props.items', this).map((item, i) =>
+							{items.map((item, i) =>
 								<ListRow
 									key={i}
 									item={item}

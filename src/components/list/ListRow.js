@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Row, Col as Column } from 'react-flexbox-grid';
 import { StyleSheet, css } from 'aphrodite';
+import selectn from 'selectn';
 import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
@@ -17,28 +18,16 @@ const styles = StyleSheet.create({
 export default class ListRow extends PureComponent {
   render() {
     const rowColumns = [];
-    const { data, actions } = this.props;
+    const { item, actions, avatar } = this.props;
 
-    console.log('actions? ', actions);
-
-    // eslint-disable-next-line guard-for-in
-    for (const key in data) {
-      if(key!=='avatar') {
+    for (let i=0; i<Object.keys(item); i++) {
+      for (const key in item) {
         rowColumns.push(
           <Column
-            key={key}
+            key={i}
             className={css(styles.content)}
             xs>
-            {data[key]}
-          </Column>
-        );
-      } else {
-        rowColumns.push(
-          <Column
-            key={key}
-            className={css(styles.content)}
-            xs>
-            <ListAvatar avatar={data[key]} />
+            {item[key]}
           </Column>
         );
       }

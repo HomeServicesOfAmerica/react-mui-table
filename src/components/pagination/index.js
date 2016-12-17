@@ -8,6 +8,8 @@ import RowsPerPage from './RowsPerPage';
 
 class Pagination extends PureComponent {
   render() {
+    const { hasNextPage, hasPreviousPage, numRows } = this.props;
+
     return (
       <ListItem>
         <Row>
@@ -15,16 +17,16 @@ class Pagination extends PureComponent {
             xsOffset={8}
             xs={2}>
             <RowsPerPage
-              handleNumRows={this.props.handleNumRows}
-              numRows={this.props.numRows}/>
+              changeRowsPerPage={this.props.changeRowsPerPage}
+              numRows={numRows} />
           </Column>
 
           <Column
             xs={2}>
             <ArrowLeft
-              onClick={this.props.handlePreviousPage} />
+              onClick={hasPreviousPage ? this.props.previousPage : ''} />
             <ArrowRight
-              onClick={this.props.handleNextPage} />
+              onClick={hasNextPage ? this.props.nextPage : ''} />
           </Column>
         </Row>
       </ListItem>

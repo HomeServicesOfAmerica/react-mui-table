@@ -16,13 +16,14 @@ class RowsPerPage extends Component {
   }
 
   render() {
+    console.log('cool props ', this.props);
     return (
       <div>
         Rows per page: {this.props.numRows}
         <DropDownMenu>
           {this.state.rowOptions.map(opt =>
             <MenuItem
-              onClick={this.props.handleNumRows.bind(null, opt)}
+              onClick={this.props.changeRowsPerPage.bind(null, opt)}
               key={opt}
               value={opt}
               primaryText={opt.toString()} />
