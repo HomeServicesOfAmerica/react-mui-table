@@ -11,28 +11,28 @@ import NoResults from './NoResults';
 import Pagination from '../pagination';
 import Search from '../search';
 
-const items = [
-	{
-		firstName: 'bob',
-		lastName: 'ross',
-		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
-	},
-	{
-		firstName: 'ragnar',
-		lastName: 'lodbrok',
-		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
-	},
-	{
-		firstName: 'rachael',
-		lastName: 'ray',
-		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
-	},
-	{
-		firstName: 'guy',
-		lastName: 'fieri',
-		avatar: '',
-	},
-];
+// const items = [
+// 	{
+// 		firstName: 'bob',
+// 		lastName: 'ross',
+// 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
+// 	},
+// 	{
+// 		firstName: 'ragnar',
+// 		lastName: 'lodbrok',
+// 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
+// 	},
+// 	{
+// 		firstName: 'rachael',
+// 		lastName: 'ray',
+// 		avatar: 'https://pbs.twimg.com/profile_images/659846506678124544/qptu8mfw.jpg',
+// 	},
+// 	{
+// 		firstName: 'guy',
+// 		lastName: 'fieri',
+// 		avatar: '',
+// 	},
+// ];
 //
 // const columns = [
 // 	{
@@ -140,6 +140,8 @@ export default class ReactMuiTable extends PureComponent {
 	}
 
   render() {
+		let items = selectn('props.items', this) || this.warning('items array of objects');
+
     return (
 			<MuiThemeProvider>
 				<span>
