@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import selectn from 'selectn';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import { List } from 'material-ui/List';
@@ -20,22 +19,12 @@ export default class ReactMuiTable extends PureComponent {
       itemsSelected: [],
     };
 
-    // this.runFilter = this.runFilter.bind(this);
-    // this.runSort = this.runSort.bind(this);
     this.checkAllRows = this.checkAllRows.bind(this);
     this.uncheckAllRows = this.uncheckAllRows.bind(this);
     this.checkRow = this.checkRow.bind(this);
     this.uncheckRow = this.uncheckRow.bind(this);
     this.warning = this.warning.bind(this);
   }
-
-  // runFilter() {
-  //
-  // }
-  //
-  // runSort() {
-  //
-  // }
 
   checkAllRows() {
     // TODO: add all rows to this.state.itemsSelected
@@ -62,44 +51,43 @@ export default class ReactMuiTable extends PureComponent {
   }
 
   render() {
-    const items = selectn('props.items', this) || this.warning('items array of objects');
-
     return (
       <MuiThemeProvider>
         <span>
           {Search({
-            tableName: selectn('props.tableName') || '',
-            handleSearch: selectn('props.handleSearch') || this.warning('handleSearch function'),
+            tableName: this.props.tableName || '',
+            handleSearch: this.props.handleSearch || this.warning('handleSearch function'),
           })}
           <Paper zDepth={2}>
             <List>
               {Masthead({
                 itemsSelected: this.state.itemsSelected,
-                handleDelete: selectn('props.handleDelete') || this.warning('handleDelete function'),
-                handleFilter: selectn('props.handleFilter') || this.warning('handleFilter function'),
-                filters: selectn('props.filters' || this.warning('filter array of objects')),
+                handleDelete: this.props.handleDelete || this.warning('handleDelete function'),
+                filters: this.props.filters || this.warning('filter array of objects'),
               })}
 
               {ListColumns({
-                columns: selectn('props.columns', this) || this.warning('columns array of objects'),
-                handleSort: selectn('props.handleSort', this) || this.warning('handleSort function'),
+                columns: this.props.columns || this.warning('columns array of objects'),
+                handleSort: this.props.handleSort || this.warning('handleSort function'),
               })}
 
-              {items.map((item, i) =>
+              {this.props.items.map((item, i) =>
                 <ListRow
                   key={i}
+                  columns={this.props.columns}
                   item={item}
-                  actions={selectn('props.actions', this)}
-                  avatar={selectn('props.avatar') || this.warning('avatar string')} />)}
+                  actions={this.props.actions}
+                  avatar={this.props.avatar || ''} />)}
 
-              <Pagination
-                hasNextPage={selectn('props.hasNextPage', this) || this.warning('hasNextPage boolean')}
-                hasPreviousPage={selectn('props.hasPreviousPage', this) || this.warning('hasPreviousPage boolean')}
-                paginationText={selectn('props.paginationText', this) || this.warning('paginationText string')}
-                changeRowsPerPage={selectn('props.changeRowsPerPage', this) || this.warning('changeRowsPerPage function')}
-                nextPage={selectn('props.nextPage', this) || this.warning('nextPage function')}
-                previousPage={selectn('props.previousPage', this) || this.warning('previousPage function')}
-                numRows={selectn('state.numRows', this)} />
+              {Pagination({
+                hasNextPage: this.props.hasNextPage || this.warning('hasNextPage bool'),
+                hasPreviousPage: this.props.hasPreviousPage || this.warning('hasPreviousPage bool'),
+                paginationText: this.props.paginationText || this.warning('paginationText string'),
+                changeRowsPerPage: this.props.changeRowsPerPage || this.warning('changeRowsPerPage function'),
+                nextPage: this.props.nextPage || this.warning('nextPage function'),
+                previousPage: this.props.previousPage || this.warning('previousPage function'),
+                numRows: this.state.numRows,
+              })}
             </List>
           </Paper>
         </span>

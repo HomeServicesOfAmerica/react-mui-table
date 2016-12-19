@@ -8,7 +8,7 @@ class Delete extends PureComponent {
       <ListItem>
         Delete
         <DeleteIcon
-          onClick={this.props.deleteRecords} />
+          onClick={this.props.handleDelete.bind(null, this.props.itemsSelected)} />
       </ListItem>
     );
   }

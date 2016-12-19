@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Row, Col as Column } from 'react-flexbox-grid';
 import { ListItem } from 'material-ui/List';
 
 import ListCheckbox from './ListCheckbox';
@@ -17,7 +16,7 @@ const ListColumns = props =>
     <div>
       <ListCheckbox />
       {props.columns.map(column =>
-        <div key={column.key} xs>
+        <div key={column.key} onChange={column.sortable ? props.handleSort : ''}>
           {column.label}
         </div>
       )}

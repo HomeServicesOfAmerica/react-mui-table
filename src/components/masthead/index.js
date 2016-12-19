@@ -5,7 +5,7 @@ import Filter from './Filter';
 
 const Masthead = props =>
   !props.itemsSelected.length ?
-    <Filter itemsSelected={props.itemsSelected} /> :
-    <Delete itemsSelected={props.itemsSelected} deleteRecords={props.deleteRecords} />;
+    <Filter itemsSelected={props.itemsSelected} filters={props.filters} /> :
+    <Delete itemsSelected={props.itemsSelected} handleDelete={props.handleDelete} />;
 
 export default Masthead;
