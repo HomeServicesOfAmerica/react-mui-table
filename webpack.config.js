@@ -54,10 +54,5 @@ module.exports = {
 	  	loader: "file-loader?name=[name].[ext]"
 	  }
   	]
-  },
-  sassLoader: {
-    includePaths: [
-      path.resolve(__dirname, "./src/stylesheets")
-    ]
   }
 };

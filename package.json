@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --verbose",
     "start": "webpack-dev-server --progress --colors --hot --content-base build --config ./webpack.config.js",
-    "build": "NODE_ENV=production webpack -p --config ./webpack.prod.config.js",
+    "build": "rm -r dist && babel src/components -d dist",
     "lint": "eslint ./src"
   },
   "repository": {
