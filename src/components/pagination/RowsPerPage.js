@@ -16,7 +16,6 @@ class RowsPerPage extends Component {
   }
 
   render() {
-    console.log('cool props ', this.props);
     return (
       <div>
         Rows per page: {this.props.numRows}

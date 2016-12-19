@@ -101,10 +101,6 @@ export default class ReactMuiTable extends PureComponent {
 
 		// this.runFilter = this.runFilter.bind(this);
 		// this.runSort = this.runSort.bind(this);
-		// this.handleNextPage = this.handleNextPage.bind(this);
-    // this.handlePreviousPage = this.handlePreviousPage.bind(this);
-		// this.handleNumRows = this.handleNumRows.bind(this);
-		// this.deleteRecords = this.deleteRecords.bind(this);
 		this.checkAllRows = this.checkAllRows.bind(this);
 		this.uncheckAllRows = this.uncheckAllRows.bind(this);
 		this.checkRow = this.checkRow.bind(this);
@@ -118,58 +114,6 @@ export default class ReactMuiTable extends PureComponent {
 	//
 	// runSort() {
 	//
-	// }
-
-	// handleNextPage() {
-	// 	const { nextPage, pageData } = this.props;
-	//
-	// 	if(nextPage) {
-	// 		// TODO: What data needs passed here?
-	// 		pageData.hasNextPage ? nextPage() : '';
-	// 	} else {
-	// 		console.warn('There is no nextPage function passed down as props.');
-	// 	}
-  // }
-	//
-  // handlePreviousPage() {
-	// 	const { previousPage, pageData } = this.props;
-	//
-	// 	if(previousPage) {
-	// 		// TODO: What data needs passed here?
-	// 		pageData.hasPreviousPage ? previousPage() : '';
-	// 	} else {
-	// 		console.warn('There is no previousPage function passed down as props.');
-	// 	}
-  // }
-	//
-	// handleNumRows(newNumRows) {
-	// 	const { changeNumRows } = this.props;
-	// 	const { numRows } = this.state;
-	//
-	// 	if(changeNumRows) {
-	// 		if(newNumRows !== numRows) {
-	// 			// TODO: run func from props to update query for new numRows
-	// 			this.setState({
-	// 				numRows: numRows
-	// 			});
-	// 		}
-	// 	} else {
-	// 		console.warn('There is no changeNumRows function passed down as props.');
-	// 	}
-	// }
-
-	// deleteRecords() {
-	// 	const { handleDelete } = this.props;
-	// 	const { itemsSelected } = this.state;
-	//
-	// 	if(handleDelete) {
-	// 		handleDelete(itemsSelected);
-	//
-	// 		// flush out itemsSelected from local state
-	// 		this.setState({ itemsSelected: [] });
-	// 	} else {
-	// 		console.warn('There is no handleDelete function passed down as props.');
-	// 	}
 	// }
 
 	checkAllRows() {
