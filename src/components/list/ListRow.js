@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 
 import ListCheckbox from './ListCheckbox';
 import ListAction from './ListAction';
-import ListAvatar from './ListAvatar';
+// import ListAvatar from './ListAvatar';
 
 const styles = StyleSheet.create({
   content: {
@@ -15,12 +15,14 @@ const styles = StyleSheet.create({
   },
 });
 
+// eslint-disable-next-line react/prefer-stateless-function
 export default class ListRow extends PureComponent {
   render() {
     const rowColumns = [];
-    const { item, actions, avatar } = this.props;
+    // const { item, actions, avatar } = this.props;
+    const item = selectn('item.props', this);
 
-    for (let i=0; i<Object.keys(item); i++) {
+    for (let i = 0; i < Object.keys(item); i++) {
       for (const key in item) {
         rowColumns.push(
           <Column

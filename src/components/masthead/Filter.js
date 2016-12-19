@@ -17,7 +17,7 @@ class Filter extends PureComponent {
         nestedItems={!this.props.itemsSelected.length ? [
           <ListItem key={1} className={css(styles.filter)}>
             filter options go here
-          </ListItem>
+          </ListItem>,
         ] : []} />
     );
   }

@@ -6,4 +6,4 @@ const NoResults = () =>
     No results were found
   </ListItem>;
 
-  export default NoResults;
+export default NoResults;
