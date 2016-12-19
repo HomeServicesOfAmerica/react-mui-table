@@ -20,8 +20,7 @@
   "author": "Krista Goralczyk",
   "license": "MIT",
   "dependencies": {
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0"
+    "react": "^15.3.0"
   },
   "devDependencies": {
     "aphrodite": "^1.1.0",
@@ -53,6 +52,7 @@
     "less-loader": "^2.2.3",
     "material-ui": "^0.15.2",
     "react-addons-test-utils": "^15.4.1",
+    "react-dom": "^15.3.0",
     "react-flexbox-grid": "^0.10.2",
     "react-tap-event-plugin": "2.0.0",
     "selectn": "^1.1.1",
