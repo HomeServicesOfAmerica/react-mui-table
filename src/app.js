@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import List from '../dist/bundle';
+import List from './components/list';
 
 injectTapEventPlugin();
 

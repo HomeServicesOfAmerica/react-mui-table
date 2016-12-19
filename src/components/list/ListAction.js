@@ -1,12 +1,12 @@
 import React from 'react';
-import { Col as Column } from 'react-flexbox-grid';
+// import { Col as Column } from 'react-flexbox-grid';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const ListAction = () =>
-  <Column
+  <div
     lg={1}
     md={1}
     sm={1}
@@ -16,6 +16,6 @@ const ListAction = () =>
       <MenuItem primaryText='example option one' />
       <MenuItem primaryText='example option two' />
     </IconMenu>
-  </Column>;
+  </div>;
 
 export default ListAction;

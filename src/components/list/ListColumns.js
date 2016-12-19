@@ -1,30 +1,27 @@
 import React from 'react';
-import { Row, Col as Column } from 'react-flexbox-grid';
-import { StyleSheet, css } from 'aphrodite';
+// import { Row, Col as Column } from 'react-flexbox-grid';
 import { ListItem } from 'material-ui/List';
 
 import ListCheckbox from './ListCheckbox';
 
-const styles = StyleSheet.create({
-  content: {
-    color: 'rgb(158, 158, 158)',
-    textTransform: 'uppercase',
-    fontSize: '18px',
-    fontWeight: 'normal',
-    borderBottom: '1px solid rgb(224, 224, 224)',
-  },
-});
+const styles = {
+  color: 'rgb(158, 158, 158)',
+  textTransform: 'uppercase',
+  fontSize: '18px',
+  fontWeight: 'normal',
+  borderBottom: '1px solid rgb(224, 224, 224)',
+};
 
 const ListColumns = props =>
-  <ListItem className={css(styles.content)}>
-    <Row>
+  <ListItem style={styles}>
+    <div>
       <ListCheckbox />
       {props.columns.map(column =>
-        <Column key={column.key} xs>
+        <div key={column.key} xs>
           {column.label}
-        </Column>
+        </div>
       )}
-    </Row>
+    </div>
   </ListItem>;
 
 export default ListColumns;

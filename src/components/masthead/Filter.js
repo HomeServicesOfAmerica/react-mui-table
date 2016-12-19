@@ -1,21 +1,18 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, css } from 'aphrodite';
 import { ListItem } from 'material-ui/List';
 
-const styles = StyleSheet.create({
-  filter: {
-    borderBottom: '1px solid rgb(224, 224, 224)',
-  },
-});
+const styles = {
+  borderBottom: '1px solid rgb(224, 224, 224)',
+};
 
 class Filter extends PureComponent {
   render() {
     return (
       <ListItem
-        className={css(styles.filter)}
+        style={styles}
         primaryText='FILTER'
         nestedItems={!this.props.itemsSelected.length ? [
-          <ListItem key={1} className={css(styles.filter)}>
+          <ListItem key={1} style={styles}>
             filter options go here
           </ListItem>,
         ] : []} />

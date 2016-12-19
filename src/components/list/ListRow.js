@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Row, Col as Column } from 'react-flexbox-grid';
-import { StyleSheet, css } from 'aphrodite';
+// import { Row, Col as Column } from 'react-flexbox-grid';
 import selectn from 'selectn';
 import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -9,11 +8,9 @@ import ListCheckbox from './ListCheckbox';
 import ListAction from './ListAction';
 // import ListAvatar from './ListAvatar';
 
-const styles = StyleSheet.create({
-  content: {
-    paddingBottom: '15px',
-  },
-});
+const styles = {
+  paddingBottom: '15px',
+};
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class ListRow extends PureComponent {
@@ -25,12 +22,12 @@ export default class ListRow extends PureComponent {
     for (let i = 0; i < Object.keys(item); i++) {
       for (const key in item) {
         rowColumns.push(
-          <Column
+          <div
             key={i}
-            className={css(styles.content)}
+            styles={styles}
             xs>
             {item[key]}
-          </Column>
+          </div>
         );
       }
     }
@@ -38,11 +35,11 @@ export default class ListRow extends PureComponent {
     return (
       <span>
         <ListItem>
-          <Row>
+          <div>
             <ListCheckbox />
             {rowColumns}
             <ListAction />
-          </Row>
+          </div>
         </ListItem>
         <Divider />
       </span>
