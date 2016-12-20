@@ -52,46 +52,48 @@ export default class ReactMuiTable extends PureComponent {
 
   render() {
     return (
-      <MuiThemeProvider>
-        <span>
-          {Search({
-            tableName: this.props.tableName || '',
-            handleSearch: this.props.handleSearch || this.warning('handleSearch function'),
-          })}
-          <Paper zDepth={2}>
-            <List>
-              {Masthead({
-                itemsSelected: this.state.itemsSelected,
-                handleDelete: this.props.handleDelete || this.warning('handleDelete function'),
-                filters: this.props.filters || this.warning('filter array of objects'),
-              })}
+      <div>
+        <MuiThemeProvider>
+          <span>
+            {Search({
+              tableName: this.props.tableName || '',
+              handleSearch: this.props.handleSearch || this.warning('handleSearch function'),
+            })}
+            <Paper zDepth={2}>
+              <List>
+                {Masthead({
+                  itemsSelected: this.state.itemsSelected,
+                  handleDelete: this.props.handleDelete || this.warning('handleDelete function'),
+                  filters: this.props.filters || this.warning('filter array of objects'),
+                })}
 
-              {ListColumns({
-                columns: this.props.columns || this.warning('columns array of objects'),
-                handleSort: this.props.handleSort || this.warning('handleSort function'),
-              })}
+                {ListColumns({
+                  columns: this.props.columns || this.warning('columns array of objects'),
+                  handleSort: this.props.handleSort || this.warning('handleSort function'),
+                })}
 
-              {this.props.items.map((item, i) =>
-                <ListRow
-                  key={i}
-                  columns={this.props.columns}
-                  item={item}
-                  actions={this.props.actions}
-                  avatar={this.props.avatar || ''} />)}
+                {this.props.items.map((item, i) =>
+                  <ListRow
+                    key={i}
+                    columns={this.props.columns}
+                    item={item}
+                    actions={this.props.actions}
+                    avatar={this.props.avatar || ''} />)}
 
-              {Pagination({
-                hasNextPage: this.props.hasNextPage || this.warning('hasNextPage bool'),
-                hasPreviousPage: this.props.hasPreviousPage || this.warning('hasPreviousPage bool'),
-                paginationText: this.props.paginationText || this.warning('paginationText string'),
-                changeRowsPerPage: this.props.changeRowsPerPage || this.warning('changeRowsPerPage function'),
-                nextPage: this.props.nextPage || this.warning('nextPage function'),
-                previousPage: this.props.previousPage || this.warning('previousPage function'),
-                numRows: this.state.numRows,
-              })}
-            </List>
-          </Paper>
-        </span>
-      </MuiThemeProvider>
+                {Pagination({
+                  hasNextPage: this.props.hasNextPage || this.warning('hasNextPage bool'),
+                  hasPreviousPage: this.props.hasPreviousPage || this.warning('hasPreviousPage bool'),
+                  paginationText: this.props.paginationText || this.warning('paginationText string'),
+                  changeRowsPerPage: this.props.changeRowsPerPage || this.warning('changeRowsPerPage function'),
+                  nextPage: this.props.nextPage || this.warning('nextPage function'),
+                  previousPage: this.props.previousPage || this.warning('previousPage function'),
+                  numRows: this.state.numRows,
+                })}
+              </List>
+            </Paper>
+          </span>
+        </MuiThemeProvider>
+      </div>
     );
   }
 }

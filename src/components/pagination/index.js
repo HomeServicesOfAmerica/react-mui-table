@@ -12,14 +12,14 @@ const Pagination = (props) => {
     <ListItem>
       <div>
         <RowsPerPage
-          changeRowsPerPage={this.props.changeRowsPerPage}
+          changeRowsPerPage={props.changeRowsPerPage}
           numRows={numRows} />
 
         <span>
           <ArrowLeft
-            onClick={hasPreviousPage ? this.props.previousPage : ''} />
+            onClick={hasPreviousPage ? props.previousPage : ''} />
           <ArrowRight
-            onClick={hasNextPage ? this.props.nextPage : ''} />
+            onClick={hasNextPage ? props.nextPage : ''} />
         </span>
       </div>
     </ListItem>

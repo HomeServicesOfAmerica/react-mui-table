@@ -2,7 +2,7 @@
   "name": "react-mui-table",
   "version": "0.0.1",
   "description": "A react component that takes data & style parameters, and renders a Material UI table.",
-  "main": "src/components/list/index.js",
+  "main": "dist/list/index.js",
   "scripts": {
     "test": "jest --verbose",
     "start": "webpack-dev-server --progress --colors --hot --content-base build --config ./webpack.config.js",
