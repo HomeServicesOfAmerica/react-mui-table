@@ -1,23 +1,53 @@
 import React, { Component } from 'react';
-import { ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
+import FlatButton from 'material-ui/FlatButton';
+
+import chunkArray from '../../helpers/chunkArray';
 
 const styles = {
-  borderBottom: '1px solid rgb(224, 224, 224)',
+  filterBar: {
+    cursor: 'pointer',
+    padding: '13px 0 13px 0',
+    color: '#03a9f4',
+    fontSize: 14,
+    fontWeight: '500',
+    borderBottom: '1px solid rgb(224, 224, 224)',
+  },
+  filterOptions: {
+    paddingLeft: 16,
+    color: 'rgba(0, 0, 0, 0.870588)',
+    fontSize: 14,
+    fontWeight: '400',
+    borderBottom: '1px solid rgb(224, 224, 224)',
+  },
+  optionListWrapper: {
+    listStyleType: 'none',
+    float: 'left',
+    padding: '0',
+  },
+  optionListItem: {
+    paddingBottom: 5,
+  },
+  checkbox: {
+    display: 'inline-block',
+    width: 'auto',
+    bottom: -5,
+    right: -4,
+  },
+  floatClear: {
+    display: 'block',
+    clear: 'both',
+  },
 };
 
 class Filter extends Component {
-  constructor(props) {
-    super(props);
-
-    // Create a property in state for each filter
-    this.state = {
-      ...this.props.filters.reduce((acc, filter) => {
-        acc[filter.label] = [];
-        return acc;
-      }, {}),
-    };
-  }
+  state = {
+    opsVisible: false,
+    ...this.props.filters.reduce((acc, filter) => {
+      acc[filter.label] = [];
+      return acc;
+    }, {}),
+  };
 
   componentWillReceiveProps(nextProps) {
     // Make sure filter configs are in state
@@ -43,29 +73,42 @@ class Filter extends Component {
     this.props.handleFilter(label, newLabelFilter);
   }
 
+  toggleVisibility = () => this.setState({ opsVisible: !this.state.opsVisible });
+
   render() {
+    const { filters } = this.props;
+    const filterColumns = chunkArray(filters, 4);
+
     return (
-      <ListItem
-        style={styles}
-        primaryText='FILTER'
-        nestedItems={[
-          this.props.filters.length && (
-            <ListItem key={1} style={styles}>
-              {this.props.filters.map((filter, fKey) => (
-                <div key={fKey}>
-                  <h3> {filter.label} </h3>
-                  {filter.options.map((option, oKey) => (
-                    <Checkbox
-                      key={oKey}
-                      onCheck={(evt, checked) => this.updateFilter(filter.label, option, checked)}
-                      label={option} />
-                    ))}
-                </div>
-                )
+      <span>
+        <div
+          style={styles.filterBar}
+          onClick={this.toggleVisibility}>
+          <FlatButton
+            label='filter'
+            primary />
+        </div>
+        <div
+          style={{ ...styles.filterOptions, display: this.state.opsVisible ? 'block' : 'none' }}>
+          {filterColumns.map((col, i) =>
+            <ul
+              key={i}
+              style={styles.optionListWrapper}>
+              {col.map((option, j) =>
+                <li
+                  key={j}
+                  style={styles.optionListItem}>
+                  <Checkbox
+                    style={styles.checkbox}
+                    onCheck={(evt, checked) => this.updateFilter(option.label, option, checked)} />
+                  {option.label}
+                </li>
               )}
-            </ListItem>
-          ),
-        ]} />
+            </ul>
+          )}
+          <span style={styles.floatClear} />
+        </div>
+      </span>
     );
   }
 }

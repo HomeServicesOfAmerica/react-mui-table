@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import List from '../dist/list/index.js';
+import List from '../dist/components/list/index.js';
 
 injectTapEventPlugin();
 //
@@ -9,7 +9,7 @@ injectTapEventPlugin();
 //
 const hasNextPage = true;
 const hasPreviousPage = false;
-const paginationText = 'Showing results 1 - 15 of 300';
+const paginationText = '1 - 15 of 300';
 const changeRowsPerPage = (...args) => console.log('changeRowsPerPage ran', ...args);
 const nextPage = (...args) => console.log('nextPage ran', ...args);
 const previousPage = (...args) => console.log('previousPage ran', ...args);
@@ -70,8 +70,8 @@ const columns = [
     filterable: true,
   },
   {
-    label: 'Photo',
-    key: 'photo',
+    label: 'Email',
+    key: 'email',
     sortable: true,
     filterable: true,
   },
@@ -81,14 +81,17 @@ const items = [
   {
     firstName: 'ragnar',
     lastName: 'lodbrok',
+    email: 'ragnar.lodbrok@gmail.com',
   },
   {
     firstName: 'rachael',
     lastName: 'ray',
+    email: 'rachael.ray@gmail.com',
   },
   {
     firstName: 'guy',
     lastName: 'fieri',
+    email: 'dinersdriveinsandlols@gmail.com',
     avatar: '',
   },
 ];
