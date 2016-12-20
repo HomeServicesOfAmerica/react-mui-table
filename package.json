@@ -20,6 +20,7 @@
   "author": "Krista Goralczyk",
   "license": "MIT",
   "dependencies": {
+    "lodash.isequal": "^4.4.0",
     "react": "^15.3.0"
   },
   "devDependencies": {

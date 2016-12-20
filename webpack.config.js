@@ -1,30 +1,30 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
-  entry: "./src/app.js",
+  entry: './example/app.js',
   output: {
-    filename: "bundle.js",
-    path: __dirname + "/dist"
+    filename: 'bundle.js',
+    path: `${__dirname}/dist`,
   },
   devServer: {
-  	contentBase: './src/',
+  	contentBase: './example/',
   	port: 5001,
-  	hot: true
+  	hot: true,
   },
   devtool: 'source-map',
   plugins: [new HtmlWebpackPlugin({
     title: 'React Material List',
-    template: path.join(__dirname, './src/index.html'),
-    inject: 'body'
+    template: path.join(__dirname, './example/index.html'),
+    inject: 'body',
   }), ],
   module: {
   	loaders: [
 	  {
 	  	test: /\.css$/,
 	  	loader: 'style!css?modules',
-      include: /flexboxgrid/
+      include: /flexboxgrid/,
 	  },
     {
       test: /\.css$/,
@@ -35,20 +35,20 @@ module.exports = {
 	  {
 	  	test: /\.js$/,
 	  	loader: 'babel',
-      exclude: path.join(__dirname, './node_modules')
+      exclude: path.join(__dirname, './node_modules'),
 	  },
 	  {
 	  	test: /\.(png|jpg|gif|woff|woff2)$/,
-	  	loader: 'url-loader?limit=8192'
+	  	loader: 'url-loader?limit=8192',
 	  },
 	  {
 	  	test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
-	  	loader: "url-loader?mimetype=application/font-woff"
+	  	loader: 'url-loader?mimetype=application/font-woff',
 	  },
 	  {
 	  	test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
-	  	loader: "file-loader?name=[name].[ext]"
-	  }
-  	]
-  }
+	  	loader: 'file-loader?name=[name].[ext]',
+	  },
+  	],
+  },
 };
