@@ -68,7 +68,8 @@ export default class ReactMuiTable extends Component {
                 <Masthead
                   itemsSelected={this.state.itemsSelected}
                   handleDelete={this.props.handleDelete || this.warning('handleDelete function')}
-                  filters={this.props.filters || this.warning('filter array of objects')} />
+                  filters={this.props.filters || this.warning('filter array of objects')}
+                  handleFilter={this.props.handleFilter} />
                 <ListColumns
                   columns={this.props.columns || this.warning('columns array of objects')}
                   handleSort={this.props.handleSort || this.warning('handleSort function')}

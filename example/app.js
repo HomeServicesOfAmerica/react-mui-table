@@ -49,7 +49,7 @@ const filters = [
   },
   {
     label: 'something else',
-    options: ['asd', 'fds', 'wet', 'xfbd'],
+    options: ['yippie', 'kay', 'yay', 'm'],
     handler: handleFilter,
   },
 ];
