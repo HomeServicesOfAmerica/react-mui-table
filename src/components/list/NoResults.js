@@ -1,9 +1,8 @@
 import React from 'react';
-import { ListItem } from 'material-ui/List';
 
 const NoResults = () =>
-  <ListItem>
+  <div>
     No results were found
-  </ListItem>;
+  </div>;
 
 export default NoResults;

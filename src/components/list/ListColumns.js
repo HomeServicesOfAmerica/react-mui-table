@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
-import { ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
+import ArrowDown from 'material-ui/svg-icons/navigation/arrow-downward';
+import ArrowUp from 'material-ui/svg-icons/navigation/arrow-upward';
 
-const styles = {
-  color: 'rgb(158, 158, 158)',
-  textTransform: 'uppercase',
-  fontSize: '18px',
-  fontWeight: 'normal',
-  borderBottom: '1px solid rgb(224, 224, 224)',
+const iconStyle = {
+  position: 'relative',
+  top: 8,
+  left: -8,
+  width: 16,
 };
-
-const NOOP = () => {};
 
 const generateSortPrefix = (arrayOfPrefix) => {
   if (!(Array.isArray(arrayOfPrefix) && typeof arrayOfPrefix[0] === 'string')) {
     return '';
   }
-  return arrayOfPrefix[0];
+
+  if (arrayOfPrefix[0] === 'ASC') {
+    return <ArrowUp style={iconStyle} />;
+  } else if (arrayOfPrefix[0] === 'DESC') {
+    return <ArrowDown style={iconStyle} />;
+  }
 };
 
 export default class ListColumns extends Component {
-  constructor(props) {
-    super(props);
-
-    // Create a property in state for each sortOption
-    this.state = {
-      ...this.props.sortOptions.reduce((acc, opts) => {
-        acc[opts.label] = opts.options;
-        return acc;
-      }, {}),
-    };
-  }
+  // Create a property in state for each sortOption
+  state = {
+    ...this.props.sortOptions.reduce((acc, opts) => {
+      acc[opts.label] = opts.options;
+      return acc;
+    }, {}),
+  };
 
   componentWillReceiveProps(nextProps) {
     // Make sure sort configs are in state
@@ -41,11 +40,10 @@ export default class ListColumns extends Component {
     });
   }
 
-  // Move front element to the end and call handleSort with new value
-  // Current sort option is always in position 0
-  cycleSortOption = (label) => {
+  cycleSortOption = (event) => {
+    if (!event.target.getAttribute('data-sortable')) return; // Don't do anything if not sortable.
+    const label = event.target.id;
     if (!Array.isArray(this.state[label])) return;
-
     const slicedArr = this.state[label].slice();
     slicedArr.push(slicedArr.shift());
     this.setState(
@@ -56,18 +54,47 @@ export default class ListColumns extends Component {
 
   // TODO: Refactor to take function creation out of render method
   render() {
-    const { columns } = this.props;
+    const { columns, avatar, handleSelectAll } = this.props;
+    const styles = {
+      wrapper: {
+        borderBottom: '1px solid rgb(224, 224, 224)',
+        padding: '13px 0 13px 16px',
+      },
+      column: {
+        position: 'relative',
+        paddingLeft: 4,
+        top: -5,
+        textTransform: 'uppercase',
+        fontSize: 12,
+        fontWeight: '500',
+        display: 'inline-block',
+        width: `calc(${Math.floor(100 / (columns.length + 1)).toString()}% - 1em)`,
+      },
+      checkbox: {
+        display: 'inline-block',
+        width: 'auto',
+        paddingLeft: 4,
+      },
+    };
+    const avatarStyles = avatar ? { paddingRight: 64 } : {};
+
     return (
-      <ListItem style={styles}>
-        <Checkbox checked={this.props.selectedAll} onCheck={this.props.handleSelectAll} />
-        {columns.map(column => (
-          <span
+      <div style={styles.wrapper}>
+        <Checkbox
+          style={{ ...styles.checkbox, ...avatarStyles }}
+          onCheck={handleSelectAll} />
+        {columns.map(column =>
+          <div
             key={column.key}
-            onClick={column.sortable ? () => this.cycleSortOption(column.label) : NOOP}>
-            {` ${generateSortPrefix(this.state[column.label])} ${column.label} `}
-          </span>
-        ))}
-      </ListItem>
+            style={{ ...styles.column, color: generateSortPrefix(this.state[column.label]) ? 'rgba(0, 0, 0, .87)' : 'rgba(0, 0, 0, .54)' }}
+            id={column.label}
+            data-sortable={column.sortable}
+            onClick={this.cycleSortOption}>
+            {generateSortPrefix(this.state[column.label])}
+            {column.label}
+          </div>
+        )}
+      </div>
     );
   }
 }
