@@ -1,7 +1,6 @@
 *.log
-npm-debug.log*
 build
 node_modules
 .npm
 .DS_Store
-dist/*
+dist

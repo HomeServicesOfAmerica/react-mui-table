@@ -7,10 +7,13 @@ const styles = {
   marginBottom: '15px',
 };
 
+// TODO: Debounce / throttle search
 const Search = props =>
   <Paper zDepth={2} style={styles}>
     <SearchIcon />
-    <TextField hintText={`Search All ${props.tableName}`} onChange={props.handleSearch} />
+    <TextField
+      hintText={`Search All ${props.tableName}`}
+      onChange={e => props.handleSearch(e.target.value)} />
   </Paper>;
 
 export default Search;
