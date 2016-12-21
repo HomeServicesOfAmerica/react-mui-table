@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --verbose",
     "start": "webpack-dev-server --progress --colors --hot --content-base build --config ./webpack.config.js",
-    "build": "rm -r dist && babel src/components -d dist",
+    "build": "babel src/components -d dist",
+    "build:watch": "babel src/components -d dist -w",
     "lint": "eslint ./src"
   },
   "repository": {
@@ -33,7 +34,7 @@
     "babel-polyfill": "^6.20.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-3": "^6.17.0",
+    "babel-preset-stage-2": "^6.18.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.26.1",
     "enzyme": "^2.6.0",

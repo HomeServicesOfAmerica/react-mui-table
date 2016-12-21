@@ -1,17 +1,16 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { ListItem } from 'material-ui/List';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
-class Delete extends PureComponent {
-  render() {
-    return (
-      <ListItem>
-        Delete
-        <DeleteIcon
-          onClick={this.props.handleDelete.bind(null, this.props.itemsSelected)} />
-      </ListItem>
-    );
-  }
-}
+const iconStyle = {
+  float: 'right',
+};
+
+const Delete = ({ itemsSelected, handleDelete }) => (
+  <ListItem>
+    Items Selected: {itemsSelected.length}
+    <DeleteIcon style={iconStyle} onClick={handleDelete(itemsSelected)} />
+  </ListItem>
+);
 
 export default Delete;

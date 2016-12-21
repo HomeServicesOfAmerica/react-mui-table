@@ -19,7 +19,6 @@ const handleFilter = (...args) => console.log('handleFilter ran', ...args);
 const handleSort = (...args) => console.log(...args);
 const handleSearch = (...args) => console.log('handleSearch ran', ...args);
 
-
 //
 // Dummy data
 //
@@ -45,19 +44,16 @@ const filters = [
   {
     label: 'role',
     options: ['test', 'tester', 'hu', 'demo'],
-    handler: handleFilter,
   },
   {
     label: 'something else',
     options: ['yippie', 'kay', 'yay', 'm'],
-    handler: handleFilter,
   },
 ];
 
 const sortOptions = [{
   label: 'first name',
   options: [null, 'ASC', 'DESC'],
-  handler: handleSort,
 }];
 
 const columns = [

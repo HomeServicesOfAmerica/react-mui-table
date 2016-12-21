@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 
@@ -6,11 +6,10 @@ const styles = {
   borderBottom: '1px solid rgb(224, 224, 224)',
 };
 
-class Filter extends PureComponent {
+class Filter extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: Verify all input so that something can't be 'filterable' but not have filter options
     // Create a property in state for each filter
     this.state = {
       ...this.props.filters.reduce((acc, filter) => {
@@ -29,7 +28,7 @@ class Filter extends PureComponent {
     });
   }
 
-  updateFilter(label, option, active) {
+  updateFilter = (label, option, active) => {
     const currentLabelFilter = this.state[label];
     let newLabelFilter;
     if (active) {
@@ -58,7 +57,6 @@ class Filter extends PureComponent {
                   {filter.options.map((option, oKey) => (
                     <Checkbox
                       key={oKey}
-                      // checked={this.state[filter.label][option]}
                       onCheck={(evt, checked) => this.updateFilter(filter.label, option, checked)}
                       label={option} />
                     ))}
