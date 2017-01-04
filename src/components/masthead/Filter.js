@@ -98,10 +98,14 @@ class Filter extends Component {
                 <li
                   key={j}
                   style={styles.optionListItem}>
-                  <Checkbox
-                    style={styles.checkbox}
-                    onCheck={(evt, checked) => this.updateFilter(option.label, option, checked)} />
-                  {option.label}
+                  <h4> {option.label} </h4>
+                  {option.options.map((opt, k) => (
+                    <Checkbox
+                      key={k}
+                      style={styles.checkbox}
+                      label={opt}
+                      onCheck={(evt, checked) => this.updateFilter(option.label, opt, checked)} />
+                  ))}
                 </li>
               )}
             </ul>
