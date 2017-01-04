@@ -18,6 +18,7 @@ const handleDelete = id => console.log('handleDelete ran: ', id);
 const handleFilter = (...args) => console.log('handleFilter ran', ...args);
 const handleSort = (...args) => console.log(...args);
 const handleSearch = (...args) => console.log('handleSearch ran', ...args);
+const listRowOnclick = (...args) => console.log('listRowOnclick ran', ...args);
 
 //
 // Dummy data
@@ -109,6 +110,7 @@ const Wrapper = () => (
     nextPage={nextPage}
     previousPage={previousPage}
     handleDelete={handleDelete}
+    listRowOnclick={listRowOnclick}
     actions={actions}
     handleFilter={handleFilter}
     handleSort={handleSort}

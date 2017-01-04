@@ -116,6 +116,7 @@ export default class ReactMuiTable extends Component {
                     key={i}
                     checkRow={this.checkRow}
                     uncheckRow={this.uncheckRow}
+                    listRowOnclick={this.props.listRowOnclick}
                     columns={this.props.columns}
                     item={item}
                     deepFind={deepFind}
@@ -170,4 +171,5 @@ ReactMuiTable.propTypes = {
   handleFilter: PropTypes.func,
   handleSort: PropTypes.func,
   handleSearch: PropTypes.func,
+  listRowOnclick: PropTypes.func,
 };
