@@ -19,12 +19,12 @@ const styles = {
   },
 };
 
-const Delete = ({ itemSelectedCount, handleDeletePointer }) =>
+const Delete = ({ itemSelectedCount, handleDelete }) =>
   <div style={styles.deleteBar}>
     {`${itemSelectedCount} item${itemSelectedCount <= 1 ? '' : 's'} selected`}
     <DeleteIcon
       style={styles.iconStyle}
-      onClick={handleDeletePointer} />
+      onClick={handleDelete} />
   </div>;
 
 export default Delete;
