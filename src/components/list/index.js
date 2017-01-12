@@ -87,7 +87,7 @@ export default class ReactMuiTable extends Component {
           handleSearch={this.props.handleSearch} />
       );
     }
-    
+
     return (
       <div className={this.props.containerClass} style={this.props.containerStyle}>
         <MuiThemeProvider>
@@ -114,7 +114,6 @@ export default class ReactMuiTable extends Component {
                     key={i}
                     checkRow={this.checkRow}
                     uncheckRow={this.uncheckRow}
-                    listRowOnclick={this.props.listRowOnclick}
                     columns={this.props.columns}
                     item={item}
                     deepFind={deepFind}

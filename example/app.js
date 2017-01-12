@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import moment from 'moment';
+import PublishIcon from 'material-ui/svg-icons/action/visibility';
+import UnpublishIcon from 'material-ui/svg-icons/action/visibility-off';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import List from '../src/components/list/index.js';
 
 injectTapEventPlugin();
@@ -18,7 +22,6 @@ const handleDelete = id => console.log('handleDelete ran: ', id);
 const handleFilter = (...args) => console.log('handleFilter ran', ...args);
 const handleSort = (...args) => console.log(...args);
 const handleSearch = (...args) => console.log('handleSearch ran', ...args);
-const listRowOnclick = (...args) => console.log('listRowOnclick ran', ...args);
 
 //
 // Dummy data
@@ -32,12 +35,29 @@ const actions = [
     text: 'Delete',
     action: 'delete',
     handler: handleDelete,
-    icon: 'Trashcan',
-  }, {
+    enabled: true,
+    icon: <DeleteIcon />,
+  },
+  {
+    text: 'Publish',
+    action: 'publish',
+    handler: () => {console.log('publish ran');},
+    enabled: item => item.status !== 'unpublished',
+    icon: <PublishIcon />,
+  },
+  {
+    text: 'Unpublish',
+    action: 'unpublish',
+    handler: () => {console.log('unpublish ran');},
+    enabled: item => item.status !== 'published',
+    icon: <UnpublishIcon />,
+  },
+  {
     text: 'Edit',
     action: 'edit',
     handler: handleRouting,
-    icon: 'Edit',
+    enabled: true,
+    icon: <EditIcon />,
   },
 ];
 
@@ -90,18 +110,21 @@ const items = [
     firstName: 'ragnar',
     lastName: 'lodbrok',
     email: 'ragnar.lodbrok@gmail.com',
+    status: 'published',
     date: moment(),
   },
   {
     firstName: 'rachael',
     lastName: 'ray',
     email: 'rachael.ray@gmail.com',
+    status: 'published',
     date: moment(),
   },
   {
     firstName: 'guy',
     lastName: 'fieri',
     email: 'dinersdriveinsandlols@gmail.com',
+    status: 'unpublished',
     avatar: '',
     date: moment(),
   },
@@ -129,7 +152,6 @@ class Wrapper extends Component {
         paginationText={paginationText}
         changeRowsPerPage={this.changeRowsPerPage}
         nextPage={nextPage}
-        listRowOnclick={listRowOnclick}
         previousPage={previousPage}
         handleDelete={handleDelete}
         actions={actions}

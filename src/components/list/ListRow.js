@@ -20,11 +20,6 @@ export default class ListRow extends Component {
     this.setState({ hoverState: !this.state.hoverState });
   }
 
-  rowClickHandler = () => {
-    const { item, listRowOnclick } = this.props;
-    listRowOnclick(item);
-  }
-
   render() {
     const rowColumns = [];
     const { item, actions, columns, avatar, deepFind, itemsSelected } = this.props;
@@ -91,7 +86,6 @@ export default class ListRow extends Component {
       // TODO: optimize
       <ListItem
         style={{ ...styles.row, ...hoverStateStyle }}
-        onClick={this.rowClickHandler}
         onMouseEnter={this.toggleHoverState}
         onMouseLeave={this.toggleHoverState}>
         <Checkbox
@@ -100,6 +94,7 @@ export default class ListRow extends Component {
           checked={Boolean(deepFind(item, itemsSelected))} />
         {rowColumns}
         <ListAction
+          item={item}
           avatar={avatar}
           actions={actions} />
       </ListItem>
