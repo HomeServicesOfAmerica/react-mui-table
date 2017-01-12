@@ -18,7 +18,7 @@ const styles = {
     color: 'rgba(0, 0, 0, .54)',
     fontWeight: '400',
     fontSize: 14,
-    width: '95.5%',
+    width: 'calc(100% - 50px)',
   },
 };
 

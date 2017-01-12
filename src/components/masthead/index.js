@@ -11,6 +11,8 @@ const Masthead = ({ itemSelectedCount, handleDeletePointer, filters, handleFilte
         handleDeletePointer={handleDeletePointer} />
     );
   }
+  if (filters.length === 0) return null;
+
   return (
     <Filter
       filters={filters}

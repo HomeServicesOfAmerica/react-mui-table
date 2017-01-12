@@ -31,7 +31,6 @@ const styles = {
 
 export default class ReactMuiTable extends Component {
   state = {
-    numRows: 15,
     itemsSelected: [],
   };
 
@@ -88,13 +87,12 @@ export default class ReactMuiTable extends Component {
           handleSearch={this.props.handleSearch} />
       );
     }
-
+    
     return (
-      <div style={styles.containerWrapper}>
+      <div className={this.props.containerClass} style={this.props.containerStyle}>
         <MuiThemeProvider>
           <div>
             {optionalSearch}
-
             <Paper zDepth={2}>
               <List style={styles.listContentWrapper}>
                 <Masthead
@@ -131,7 +129,7 @@ export default class ReactMuiTable extends Component {
                   changeRowsPerPage={this.props.changeRowsPerPage}
                   nextPage={this.handleNextPage}
                   previousPage={this.handlePreviousPage}
-                  numRows={this.state.numRows} />
+                  rows={this.props.rows} />
               </List>
             </Paper>
           </div>
