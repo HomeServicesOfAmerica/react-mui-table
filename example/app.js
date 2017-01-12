@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import moment from 'moment';
 import PublishIcon from 'material-ui/svg-icons/action/visibility';
 import UnpublishIcon from 'material-ui/svg-icons/action/visibility-off';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import List from '../src/components/list/index.js';
+import Table from '../src/components/table/index.js';
 
 injectTapEventPlugin();
 //
@@ -20,7 +21,6 @@ const previousPage = (...args) => console.log('previousPage ran', ...args);
 const handleRouting = (...args) => console.log('handleRouting ran', ...args);
 const handleDelete = id => console.log('handleDelete ran: ', id);
 const handleFilter = (...args) => console.log('handleFilter ran', ...args);
-const handleSort = (...args) => console.log(...args);
 const handleSearch = (...args) => console.log('handleSearch ran', ...args);
 
 //
@@ -28,43 +28,12 @@ const handleSearch = (...args) => console.log('handleSearch ran', ...args);
 //
 const tableName = 'Test List';
 
-const avatar = 'profilePhoto.sizes.small.src';
-
-const actions = [
-  {
-    text: 'Delete',
-    action: 'delete',
-    handler: handleDelete,
-    enabled: true,
-    icon: <DeleteIcon />,
-  },
-  {
-    text: 'Publish',
-    action: 'publish',
-    handler: () => {console.log('publish ran');},
-    enabled: item => item.status !== 'unpublished',
-    icon: <PublishIcon />,
-  },
-  {
-    text: 'Unpublish',
-    action: 'unpublish',
-    handler: () => {console.log('unpublish ran');},
-    enabled: item => item.status !== 'published',
-    icon: <UnpublishIcon />,
-  },
-  {
-    text: 'Edit',
-    action: 'edit',
-    handler: handleRouting,
-    enabled: true,
-    icon: <EditIcon />,
-  },
-];
+const avatar = 'img';
 
 const filters = [
   {
     label: 'role',
-    options: ['test', 'tester', 'hu', 'demo'],
+    options: ['test', 'tester', 'hu', 'demo', 'two', 'column', 'test'],
   },
   {
     label: 'something else',
@@ -89,18 +58,23 @@ const columns = [
     key: 'lastName',
     sortable: true,
     filterable: true,
+    sm: false,
   },
   {
     label: 'Email',
     key: 'email',
     sortable: true,
     filterable: true,
+    colSpan: 2,
   },
   {
     label: 'Important Date',
     key: 'date',
     sortable: false,
     filterable: false,
+    lg: true,
+    xl: false,
+    tooltip: 'Haha this is not really important',
     format: date => date.format('DD.MM.YYYY'),
   },
 ];
@@ -112,6 +86,7 @@ const items = [
     email: 'ragnar.lodbrok@gmail.com',
     status: 'published',
     date: moment(),
+    id: 1,
   },
   {
     firstName: 'rachael',
@@ -119,6 +94,8 @@ const items = [
     email: 'rachael.ray@gmail.com',
     status: 'published',
     date: moment(),
+    img: 'https://pbs.twimg.com/profile_images/419136331587919872/NQDabAD5_400x400.jpeg',
+    id: 2,
   },
   {
     firstName: 'guy',
@@ -127,41 +104,108 @@ const items = [
     status: 'unpublished',
     avatar: '',
     date: moment(),
+    id: 3,
   },
 ];
 
 class Wrapper extends Component {
   state = {
     rows: 15,
+    items,
+    currentSort: {},
   };
+
+
+  actions = [
+    {
+      text: 'Delete',
+      action: 'delete',
+      handler: target => this.setState({
+        items: this.state.items.filter(item => item.id !== target.id)
+      }),
+      enabled: true,
+      icon: <DeleteIcon />,
+    },
+    {
+      text: 'Publish',
+      action: 'publish',
+      handler: (target) => {
+        const newItems = this.state.items.map((item) => {
+          if (item.id === target.id) item.status = 'published';
+          return item;
+        });
+        this.setState({ items: newItems });
+      },
+      enabled: item => item.status === 'unpublished',
+      icon: <PublishIcon />,
+    },
+    {
+      text: 'Unpublish',
+      action: 'unpublish',
+      handler: (target) => {
+        const newItems = this.state.items.map((item) => {
+          if (item.id === target.id) item.status = 'unpublished';
+          return item;
+        });
+        this.setState({ items: newItems });
+      },
+      enabled: item => item.status === 'published',
+      icon: <UnpublishIcon />,
+    },
+    {
+      text: 'Edit',
+      action: 'edit',
+      handler: handleRouting,
+      enabled: true,
+      icon: <EditIcon />,
+    },
+  ];
 
   changeRowsPerPage = (rows) => {
     this.setState({ rows });
     console.log('changeRowsPerPage ran', rows);
   };
 
+  handleSort = (label, direction, key) => {
+    this.setState({
+      currentSort: {
+        label,
+        direction,
+      },
+      items: this.state.items.sort((a, b) => {
+        if (a[key] > b[key]) return direction === 'ASC' ? 1 : -1;
+        if (a[key] < b[key]) return direction === 'ASC' ? -1 : 1;
+        return 0;
+      }),
+    });
+  };
+
   render() {
     return (
-      <List
-        avatar={avatar}
-        tableName={tableName}
-        items={items}
-        columns={columns}
-        hasNextPage={hasNextPage}
-        hasPreviousPage={hasPreviousPage}
-        paginationText={paginationText}
-        changeRowsPerPage={this.changeRowsPerPage}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        handleDelete={handleDelete}
-        actions={actions}
-        handleFilter={handleFilter}
-        handleSort={handleSort}
-        handleSearch={handleSearch}
-        filters={filters}
-        rows={this.state.rows}
-        containerStyle={{ padding: 96 }}
-        sortOptions={sortOptions} />
+      <MuiThemeProvider>
+        <Table
+          avatar={avatar}
+          tableName={tableName}
+          itemUniqueId={'id'}
+          items={this.state.items}
+          columns={columns}
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+          paginationText={paginationText}
+          changeRowsPerPage={this.changeRowsPerPage}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          handleDelete={handleDelete}
+          actions={this.actions}
+          handleFilter={handleFilter}
+          handleSort={this.handleSort}
+          handleSearch={handleSearch}
+          currentSort={this.state.currentSort}
+          filters={filters}
+          rows={this.state.rows}
+          containerStyle={{ padding: 96 }}
+          sortOptions={sortOptions} />
+      </MuiThemeProvider>
     );
   }
 }

@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
-
-import chunkArray from '../../helpers/chunkArray';
+import { darkBlack, faintBlack } from 'material-ui/styles/colors';
 
 const styles = {
   filterBar: {
     cursor: 'pointer',
-    padding: '13px 0 13px 0',
+    padding: '13px 0 13px 6px',
     color: '#03a9f4',
     fontSize: 14,
     fontWeight: '500',
-    borderBottom: '1px solid rgb(224, 224, 224)',
   },
   filterOptions: {
     paddingLeft: 16,
+    paddingBottom: 10,
     color: 'rgba(0, 0, 0, 0.870588)',
     fontSize: 14,
     fontWeight: '400',
-    borderBottom: '1px solid rgb(224, 224, 224)',
   },
   optionListWrapper: {
     listStyleType: 'none',
@@ -29,58 +27,61 @@ const styles = {
     paddingBottom: 5,
   },
   checkbox: {
-    display: 'inline-block',
-    width: 'auto',
-    bottom: -5,
-    right: -4,
+    marginBottom: 10,
   },
   floatClear: {
     display: 'block',
     clear: 'both',
   },
+  header: {
+    margin: '20px 0',
+    color: darkBlack,
+    fontSize: 14,
+    fontWeight: 600,
+  },
+  checkboxColumn: {
+    float: 'left',
+    marginRight: 48,
+  },
+  container: {
+    borderBottom: `1px solid ${faintBlack}`,
+  },
 };
+
+const chunkArray = original => original.reduce((accumulator, current) => {
+  let pushed = false;
+  for (const col of accumulator) {
+    if (col.length < 4) {
+      col.push(current);
+      pushed = true;
+    }
+  }
+  if (!pushed) accumulator.push([current]);
+  return accumulator;
+}, [[]]);
 
 class Filter extends Component {
   state = {
     opsVisible: false,
-    ...this.props.filters.reduce((acc, filter) => {
-      acc[filter.label] = [];
-      return acc;
-    }, {}),
   };
 
-  componentWillReceiveProps(nextProps) {
-    // Make sure filter configs are in state
-    nextProps.filters.forEach((filter) => {
-      if (this.state[filter.label] === undefined) {
-        this.setState({ [filter.label]: [] });
-      }
-    });
-  }
+  getCheckedOptions = label => Array.prototype.slice.call(
+    document.querySelectorAll(`[data-key="${label}"]:checked`)
+  );
 
-  updateFilter = (label, option, active) => {
-    const currentLabelFilter = this.state[label];
-    let newLabelFilter;
-    if (active) {
-      newLabelFilter = [...currentLabelFilter, option];
-    } else {
-      newLabelFilter = currentLabelFilter.filter(cur => cur !== option);
-    }
-
-    if (newLabelFilter.length === 0) newLabelFilter = null;
-
-    this.setState({ [label]: newLabelFilter || [] });
-    this.props.handleFilter(label, newLabelFilter);
-  }
+  updateFilter = (event) => {
+    const label = event.target.dataset.key;
+    const options = this.getCheckedOptions(label).map(element => element.dataset.value);
+    this.props.handleFilter(label, options);
+  };
 
   toggleVisibility = () => this.setState({ opsVisible: !this.state.opsVisible });
 
   render() {
     const { filters } = this.props;
-    const filterColumns = chunkArray(filters, 4);
 
     return (
-      <span>
+      <div style={styles.container}>
         <div
           style={styles.filterBar}
           onClick={this.toggleVisibility}>
@@ -88,31 +89,30 @@ class Filter extends Component {
             label='filter'
             primary />
         </div>
-        <div
-          style={{ ...styles.filterOptions, display: this.state.opsVisible ? 'block' : 'none' }}>
-          {filterColumns.map((col, i) =>
-            <ul
-              key={i}
-              style={styles.optionListWrapper}>
-              {col.map((option, j) =>
-                <li
-                  key={j}
-                  style={styles.optionListItem}>
-                  <h4> {option.label} </h4>
-                  {option.options.map((opt, k) => (
-                    <Checkbox
-                      key={k}
-                      style={styles.checkbox}
-                      label={opt}
-                      onCheck={(evt, checked) => this.updateFilter(option.label, opt, checked)} />
-                  ))}
-                </li>
-              )}
-            </ul>
-          )}
-          <span style={styles.floatClear} />
-        </div>
-      </span>
+        {this.state.opsVisible && (
+          <div style={styles.filterOptions}>
+            {filters.map(col => (
+              <div style={styles.checkboxColumn}>
+                <h4 style={styles.header}>{col.label}</h4>
+                {chunkArray(col.options).map(optionArray => (
+                  <div style={styles.checkboxColumn}>
+                    {optionArray.map(option => (
+                      <Checkbox
+                        style={styles.checkbox}
+                        key={option}
+                        data-key={col.label}
+                        data-value={option}
+                        label={option}
+                        onCheck={this.updateFilter} />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+            <span style={styles.floatClear} />
+          </div>
+        )}
+      </div>
     );
   }
 }
