@@ -10,16 +10,23 @@ const styles = {
   maxHeight: 16,
 };
 
-// TODO: figure out how to handle conditional icons for MenuItem leftIcon option
-const ListAction = ({ actions, avatar }) =>
+const ListAction = ({ actions, avatar, item }) =>
   <IconMenu
     style={{ ...styles, top: avatar ? -2 : -10 }}
     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}>
-    {actions.map((action, i) =>
-      <MenuItem
-        key={i}
-        primaryText={action.text} />
-    )}
+    {actions.map((action, i) => {
+      const enabled = typeof action.enabled === 'function' ? action.enabled(item) : action.enabled;
+
+      if (enabled) {
+        return (
+          <MenuItem
+            key={i}
+            leftIcon={action.icon}
+            onClick={action.handler}
+            primaryText={action.text} />
+        );
+      }
+    })}
   </IconMenu>;
 
 export default ListAction;
