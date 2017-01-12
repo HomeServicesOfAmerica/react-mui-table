@@ -40,6 +40,7 @@ export default class ListRow extends Component {
       column: {
         position: 'relative',
         top: -5,
+        wordWrap: 'break-word',
         display: 'inline-block',
         width: `calc(${Math.floor(100 / (columns.length + 1)).toString()}% - 1em)`,
       },
@@ -71,11 +72,15 @@ export default class ListRow extends Component {
         customSpacing = { paddingLeft: 5 };
       }
 
+      let columnValue = selectn(column.key, item);
+
+      if (columnValue && column.format) columnValue = column.format(columnValue);
+
       rowColumns.push(
         <div
           key={`${column.key}`}
           style={{ ...customSpacing, ...styles.column }}>
-          {selectn(column.key, item) || ''}
+          {columnValue || ''}
         </div>
       );
     });

@@ -82,6 +82,7 @@ export default class ListColumns extends Component {
       <div style={styles.wrapper}>
         <Checkbox
           style={{ ...styles.checkbox, ...avatarStyles }}
+          checked={this.props.selectedAll}
           onCheck={handleSelectAll} />
         {columns.map(column =>
           <div

@@ -44,7 +44,7 @@ class Pagination extends Component {
     const {
       hasNextPage,
       hasPreviousPage,
-      numRows,
+      rows,
       paginationText,
       changeRowsPerPage,
      } = this.props;
@@ -56,7 +56,7 @@ class Pagination extends Component {
           <RowsPerPage
             paginationText={paginationText}
             changeRowsPerPage={changeRowsPerPage}
-            numRows={numRows} />
+            rows={rows} />
 
           <div style={styles.caretWrapper}>
             <IconButton

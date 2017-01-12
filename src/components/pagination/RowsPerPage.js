@@ -32,6 +32,10 @@ class RowsPerPage extends Component {
     ],
   };
 
+  menuChangeHandler = (evt, key, value) => {
+    this.props.changeRowsPerPage(value);
+  }
+
   render() {
     return (
       <div style={styles.rowsPerPage}>
@@ -39,12 +43,12 @@ class RowsPerPage extends Component {
           Rows per page:
         </span>
         <DropDownMenu
-          value={this.props.numRows}
+          value={this.props.rows}
           labelStyle={styles.dropDownMenu}
+          onChange={this.menuChangeHandler}
           underlineStyle={styles.underlineStyle}>
           {this.state.rowOptions.map(opt =>
             <MenuItem
-              onClick={this.props.changeRowsPerPage.bind(null, opt)}
               key={opt}
               value={opt}
               primaryText={opt.toString()} />
