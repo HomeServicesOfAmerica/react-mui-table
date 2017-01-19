@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import prefixer from '../../helpers/prefixer';
 
-const styles = {
+const styles = prefixer.prefix({
   rowsPerPage: {
-    float: 'left',
-    position: 'relative',
-    top: -22,
-    right: -14,
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '0 10px',
   },
   dropDownMenu: {
     fontSize: 12,
     fontWeight: '400',
+    height: 'auto',
     color: 'rgba(0, 0, 0, 0.54)',
   },
   underlineStyle: {
     border: 'none',
   },
-  rowsText: {
-    position: 'relative',
-    right: -2,
-  },
-};
+});
 
 class RowsPerPage extends Component {
   state = {
@@ -44,6 +41,7 @@ class RowsPerPage extends Component {
         </span>
         <DropDownMenu
           value={this.props.rows}
+          style={styles.dropDownMenu}
           labelStyle={styles.dropDownMenu}
           onChange={this.menuChangeHandler}
           underlineStyle={styles.underlineStyle}>
