@@ -180,6 +180,8 @@ class Wrapper extends Component {
     });
   };
 
+  onItemClick = item => console.log(`clicked: ${item.firstName} ${item.lastName}`);
+
   render() {
     return (
       <MuiThemeProvider>
@@ -202,6 +204,7 @@ class Wrapper extends Component {
           handleSearch={handleSearch}
           currentSort={this.state.currentSort}
           filters={filters}
+          onItemClick={this.onItemClick}
           rows={this.state.rows}
           containerStyle={{ padding: 96 }}
           sortOptions={sortOptions} />

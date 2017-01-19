@@ -66,6 +66,17 @@ export default class ReactMuiTable extends Component {
     this.setState({ itemsSelected });
   }
 
+  handleRowClick = (rowId, colId) => {
+    if (!this.props.onItemClick) return null; // Do nothing if no click handler
+    if (colId < 0) return null; // Do nothing if clicking the checkbox
+    const { itemsSelected } = this.state;
+    if (itemsSelected.length > 0 && !itemsSelected.includes(rowId)) {
+      // Do nothing after having selected other items and clicking a row
+      return null;
+    }
+    return this.props.onItemClick(this.props.items[rowId]);
+  }
+
   // We don't want selected items to persist between pages
   handleNextPage = () => {
     this.handleRowSelection('none');
@@ -120,6 +131,7 @@ export default class ReactMuiTable extends Component {
             handleDelete={this.handleDelete}
             handleFilter={this.props.handleFilter} />
           <Table
+            onCellClick={this.handleRowClick}
             onRowSelection={this.handleRowSelection}
             multiSelectable>
             <TableHeader>
