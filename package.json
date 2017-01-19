@@ -22,6 +22,7 @@
   "author": "Krista Goralczyk",
   "license": "MIT",
   "dependencies": {
+    "inline-style-prefixer": "^2.0.5",
     "lodash.isequal": "^4.4.0",
     "react": "^15.3.0",
     "reselect": "^2.5.4",
