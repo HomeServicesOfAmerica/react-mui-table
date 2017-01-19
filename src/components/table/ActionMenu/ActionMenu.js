@@ -19,6 +19,7 @@ class ActionMenu extends Component {
       <IconMenu
         open={this.state.open}
         onRequestChange={this.toggleOpen}
+        useLayerForClickAway
         onClick={this.stopPropagation}
         iconButtonElement={<IconButton><MoreVertIcon color={lightBlack} /></IconButton>}>
         {actions.map((action) => {
