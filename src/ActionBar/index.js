@@ -3,7 +3,7 @@ import React from 'react';
 import Delete from './Delete';
 import Filter from './Filter';
 
-const Masthead = ({ itemSelectedCount, handleDeletePointer, filters, handleFilter }) => {
+const ActionBar = ({ itemSelectedCount, handleDeletePointer, filters, handleFilter }) => {
   if (itemSelectedCount) {
     return (
       <Delete
@@ -20,4 +20,4 @@ const Masthead = ({ itemSelectedCount, handleDeletePointer, filters, handleFilte
   );
 };
 
-export default Masthead;
+export default ActionBar;

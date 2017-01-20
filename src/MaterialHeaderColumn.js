@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TableHeaderColumn } from 'material-ui/table';
+import { TableHeaderColumn } from 'material-ui/Table';
 import ArrowDown from 'material-ui/svg-icons/navigation/arrow-downward';
 import ArrowUp from 'material-ui/svg-icons/navigation/arrow-upward';
 import { darkBlack } from 'material-ui/styles/colors';
@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-export default class HeaderColumn extends PureComponent {
+export default class MaterialHeaderColumn extends PureComponent {
   /**
    * Grab the correct directional icon based on
    * currentSort direction.

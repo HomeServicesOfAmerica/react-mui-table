@@ -7,7 +7,7 @@ import PublishIcon from 'material-ui/svg-icons/action/visibility';
 import UnpublishIcon from 'material-ui/svg-icons/action/visibility-off';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import Table from '../src/components/table/index.js';
+import Table from '../src/MaterialTable.js';
 
 injectTapEventPlugin();
 //
@@ -33,10 +33,12 @@ const avatar = 'img';
 const filters = [
   {
     label: 'role',
+    key: 'role',
     options: ['test', 'tester', 'hu', 'demo', 'two', 'column', 'test'],
   },
   {
     label: 'something else',
+    key: 'something.else',
     options: ['yippie', 'kay', 'yay', 'm'],
   },
 ];
@@ -163,7 +165,6 @@ class Wrapper extends Component {
 
   changeRowsPerPage = (rows) => {
     this.setState({ rows });
-    console.log('changeRowsPerPage ran', rows);
   };
 
   handleSort = (label, direction, key) => {
