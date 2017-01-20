@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
-import prefixer from '../../helpers/prefixer';
+import prefixer from '../prefixer';
 import RowsPerPage from './RowsPerPage';
 
 const styles = prefixer.prefix({

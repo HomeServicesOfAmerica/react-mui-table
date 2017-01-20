@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import { Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn } from 'material-ui/table';
+import { Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn } from 'material-ui/Table';
+import { faintBlack } from 'material-ui/styles/colors';
 import isEqual from 'lodash.isequal';
 import Avatar from 'material-ui/Avatar';
 import FallbackIcon from 'material-ui/svg-icons/social/person';
 import respondable from 'respondable';
 import selectn from 'selectn';
-import HeaderColumn from './HeaderColumn';
-import Masthead from '../masthead';
-import Pagination from '../pagination';
+import MaterialHeaderColumn from './MaterialHeaderColumn';
+import ActionBar from './ActionBar';
+import Pagination from './Pagination';
 import ActionMenu from './ActionMenu';
-import Search from '../search';
+import Search from './Search';
 
 
 const styles = {
   smallColumn: {
     padding: 0,
     width: 40,
+  },
+  tableBody: {
+    borderBottom: `1px solid ${faintBlack}`,
   },
 };
 
@@ -30,7 +34,7 @@ const breakpointObject = {
 
 const priorities = ['xs', 'sm', 'md', 'lg', 'xl'];
 
-export default class ReactMuiTable extends Component {
+export default class MaterialTable extends Component {
   columnMap = new Map();
   state = {
     itemsSelected: [],
@@ -125,7 +129,7 @@ export default class ReactMuiTable extends Component {
       <div className={this.props.containerClass} style={this.props.containerStyle}>
         {optionalSearch}
         <Paper zDepth={2}>
-          <Masthead
+          <ActionBar
             itemSelectedCount={this.state.itemsSelected.length}
             filters={this.props.filters}
             handleDelete={this.handleDelete}
@@ -142,7 +146,7 @@ export default class ReactMuiTable extends Component {
                 {this.props.columns.map((column) => {
                   if (!this.displayColumn(column)) return null;
                   return (
-                    <HeaderColumn
+                    <MaterialHeaderColumn
                       key={column.label}
                       fieldKey={column.key}
                       handleSort={this.props.handleSort}
@@ -155,7 +159,7 @@ export default class ReactMuiTable extends Component {
                 )}
               </TableRow>
             </TableHeader>
-            <TableBody showRowHover>
+            <TableBody showRowHover style={styles.tableBody}>
               {this.props.items.map((item, tableIdx) => (
                 <TableRow
                   key={item[this.props.itemUniqueId]}
@@ -179,7 +183,10 @@ export default class ReactMuiTable extends Component {
                   })}
                   {this.props.actions && this.props.actions.length > 0 && (
                     <TableRowColumn style={styles.smallColumn}>
-                      <ActionMenu actions={this.props.actions} item={item} itemId={item[this.props.itemUniqueId]} />
+                      <ActionMenu
+                        actions={this.props.actions}
+                        item={item}
+                        itemId={item[this.props.itemUniqueId]} />
                     </TableRowColumn>
                   )}
                 </TableRow>

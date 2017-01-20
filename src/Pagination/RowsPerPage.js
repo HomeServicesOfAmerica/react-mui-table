@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import prefixer from '../../helpers/prefixer';
+import prefixer from '../prefixer';
 
 const styles = prefixer.prefix({
   rowsPerPage: {

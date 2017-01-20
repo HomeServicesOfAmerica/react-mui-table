@@ -7,3 +7,4 @@ webpack.config.prod.js
 __tests__
 src
 example
+react-mui-table-*.tgz

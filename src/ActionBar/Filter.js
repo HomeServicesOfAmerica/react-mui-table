@@ -66,13 +66,13 @@ class Filter extends Component {
   };
 
   getCheckedOptions = label => Array.prototype.slice.call(
-    document.querySelectorAll(`[data-key="${label}"]:checked`)
+    document.querySelectorAll(`[data-label="${label}"]:checked`)
   );
 
   updateFilter = (event) => {
-    const label = event.target.dataset.key;
+    const { label, key } = event.target.dataset;
     const options = this.getCheckedOptions(label).map(element => element.dataset.value);
-    this.props.handleFilter(label, options);
+    this.props.handleFilter(key, options);
   };
 
   toggleVisibility = () => this.setState({ opsVisible: !this.state.opsVisible });
@@ -100,7 +100,8 @@ class Filter extends Component {
                       <Checkbox
                         style={styles.checkbox}
                         key={option}
-                        data-key={col.label}
+                        data-label={col.label}
+                        data-key={col.key}
                         data-value={option}
                         label={option}
                         onCheck={this.updateFilter} />
