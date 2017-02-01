@@ -73,6 +73,8 @@ export default class MaterialTable extends Component {
   handleRowClick = (rowId, colId) => {
     if (!this.props.onItemClick) return null; // Do nothing if no click handler
     if (colId < 0) return null; // Do nothing if clicking the checkbox
+    const actionCol = this.props.columns.length + (this.props.avatar ? 1 : 0);
+    if (colId === actionCol) return null;
     const { itemsSelected } = this.state;
     if (itemsSelected.length > 0 && !itemsSelected.includes(rowId)) {
       // Do nothing after having selected other items and clicking a row
@@ -174,7 +176,9 @@ export default class MaterialTable extends Component {
                   {this.props.columns.map((column) => {
                     if (!this.displayColumn(column)) return null;
                     let columnValue = selectn(column.key, item);
-                    if (columnValue && column.format) columnValue = column.format(columnValue);
+                    if (columnValue !== undefined && column.format) {
+                      columnValue = column.format(columnValue);
+                    }
                     return (
                       <TableRowColumn key={column.label} colSpan={column.colSpan}>
                         {columnValue || ''}

@@ -23,7 +23,7 @@ class ActionMenu extends Component {
         onClick={this.stopPropagation}
         iconButtonElement={<IconButton><MoreVertIcon color={lightBlack} /></IconButton>}>
         {actions.map((action) => {
-          let enabled = action.enabled || true;
+          let enabled = typeof action.enabled === 'boolean' ? action.enabled : true;
           if (typeof action.enabled === 'function') enabled = action.enabled(item);
           if (!enabled) return null;
           return (
