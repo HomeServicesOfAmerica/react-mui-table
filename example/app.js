@@ -19,7 +19,7 @@ const paginationText = '1 - 15 of 300';
 const nextPage = (...args) => console.log('nextPage ran', ...args);
 const previousPage = (...args) => console.log('previousPage ran', ...args);
 const handleRouting = (...args) => console.log('handleRouting ran', ...args);
-const handleDelete = id => console.log('handleDelete ran: ', id);
+const handleDelete = (...args) => console.log('handleDelete ran: ', ...args);
 const handleFilter = (...args) => console.log('handleFilter ran', ...args);
 const handleSearch = (...args) => console.log('handleSearch ran', ...args);
 
@@ -123,7 +123,7 @@ class Wrapper extends Component {
       text: 'Delete',
       action: 'delete',
       handler: target => this.setState({
-        items: this.state.items.filter(item => item.id !== target.id)
+        items: this.state.items.filter(item => item.id !== target.id),
       }),
       enabled: true,
       icon: <DeleteIcon />,
@@ -185,31 +185,59 @@ class Wrapper extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-        <Table
-          avatar={avatar}
-          tableName={tableName}
-          itemUniqueId={'id'}
-          items={this.state.items}
-          columns={columns}
-          hasNextPage={hasNextPage}
-          hasPreviousPage={hasPreviousPage}
-          paginationText={paginationText}
-          changeRowsPerPage={this.changeRowsPerPage}
-          nextPage={nextPage}
-          previousPage={previousPage}
-          handleDelete={handleDelete}
-          actions={this.actions}
-          handleFilter={handleFilter}
-          handleSort={this.handleSort}
-          handleSearch={handleSearch}
-          currentSort={this.state.currentSort}
-          filters={filters}
-          onItemClick={this.onItemClick}
-          rows={this.state.rows}
-          containerStyle={{ padding: 96 }}
-          sortOptions={sortOptions} />
-      </MuiThemeProvider>
+      <div>
+        <h1> Without Avatar </h1>
+        <MuiThemeProvider>
+          <Table
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            handleDelete={handleDelete}
+            actions={this.actions}
+            handleFilter={handleFilter}
+            handleSort={this.handleSort}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            filters={filters}
+            onItemClick={this.onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+        <h1> With Avatar </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            handleDelete={handleDelete}
+            actions={this.actions}
+            handleFilter={handleFilter}
+            handleSort={this.handleSort}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            filters={filters}
+            onItemClick={this.onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+      </div>
     );
   }
 }
