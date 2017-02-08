@@ -7,14 +7,18 @@ import Avatar from 'material-ui/Avatar';
 import FallbackIcon from 'material-ui/svg-icons/social/person';
 import respondable from 'respondable';
 import selectn from 'selectn';
+import Checkbox from 'material-ui/Checkbox';
 import MaterialHeaderColumn from './MaterialHeaderColumn';
 import ActionBar from './ActionBar';
 import Pagination from './Pagination';
 import ActionMenu from './ActionMenu';
 import Search from './Search';
 
-
 const styles = {
+  checkboxColumn: {
+    width: '40px',
+    padding: '0 0 0 25px',
+  },
   smallColumn: {
     padding: 0,
     width: 40,
@@ -37,7 +41,9 @@ const priorities = ['xs', 'sm', 'md', 'lg', 'xl'];
 export default class MaterialTable extends Component {
   columnMap = new Map();
   state = {
-    itemsSelected: [],
+    selections: this.props.items.map(() => false),
+    countSelected: 0,
+    allSelected: false,
   };
 
   componentDidMount() {
@@ -48,54 +54,89 @@ export default class MaterialTable extends Component {
     if (!isEqual(nextProps.columns, this.props.columns)) this.columnMap.clear();
   }
 
-  // NOTE: I'm not sure we should be doing this.
+  // NOTE: This won't improve performance with sufficiently large tables
   shouldComponentUpdate(nextProps, nextState) {
     return !(isEqual(nextProps, this.props) && isEqual(this.state, nextState));
   }
-  
+
   componentWillUnmount() {
     this.destroyRespondable();
+  }
+
+  handleSelectAll = () => {
+    this.toggleAll(this.state.allSelected);
+  }
+
+  toggleAll = (allSelected) => {
+    let payload;
+    if (!allSelected) {
+      payload = {
+        selections: this.props.items.map(() => true),
+        countSelected: this.props.items.length,
+      };
+    } else {
+      payload = {
+        selections: this.props.items.map(() => false),
+        countSelected: 0,
+      };
+    }
+
+    this.setState({
+      allSelected: !allSelected,
+      ...payload,
+    });
+  }
+
+  handleSelect = (event, checked) => {
+    const key = event.target.dataset.key;
+    const selections = this.state.selections.slice();
+
+    selections[key] = checked;
+
+    const countSelected = selections.filter(a => Boolean(a)).length;
+    const allSelected = countSelected === this.props.items.length;
+    this.setState({
+      selections,
+      countSelected,
+      allSelected,
+    });
   }
 
   handleResize = (active) => {
     this.setState({ viewSize: active[0] });
   };
 
-  handleRowSelection = (selected) => {
-    let itemsSelected = selected;
-    if (selected === 'all') {
-      itemsSelected = Array(this.props.rows).map((_, idx) => idx);
-    }
-    if (selected === 'none') itemsSelected = [];
-    this.setState({ itemsSelected });
-  }
-
   handleRowClick = (rowId, colId) => {
+    // Adding 3 because checkbox, avatar, menu aren't included, and they increase the column count
+    // even if they aren't rendered.
+    const menuColId = this.props.columns.length + 3;
+
     if (!this.props.onItemClick) return null; // Do nothing if no click handler
-    if (colId < 0) return null; // Do nothing if clicking the checkbox
-    const actionCol = this.props.columns.length + (this.props.avatar ? 1 : 0);
-    if (colId === actionCol) return null;
-    const { itemsSelected } = this.state;
-    if (itemsSelected.length > 0 && !itemsSelected.includes(rowId)) {
-      // Do nothing after having selected other items and clicking a row
-      return null;
-    }
+    if (colId === 1) return null; // Do nothing if clicking the checkbox
+    if (colId === menuColId) return null; // Do nothing if clicking the menu
+
     return this.props.onItemClick(this.props.items[rowId]);
   }
 
   // We don't want selected items to persist between pages
   handleNextPage = () => {
-    this.handleRowSelection('none');
+    this.toggleAll(true);
     this.props.nextPage();
   }
   handlePreviousPage = () => {
-    this.handleRowSelection('none');
+    this.toggleAll(true);
     this.props.previousPage();
   }
 
   handleDelete = () => {
     if (this.props.handleDelete) {
-      this.props.handleDelete(this.state.itemsSelected.map(idx => this.props.items[idx]));
+      // We have to filter out the ones that are being tracked but currently aren't selected.
+      const validSelections = this.state.selections
+        .filter(isSelected => Boolean(isSelected))
+        .map((_, idx) => this.props.items[idx]);
+
+      this.props.handleDelete(validSelections);
+      this.toggleAll(true);
     }
   }
 
@@ -117,7 +158,6 @@ export default class MaterialTable extends Component {
 
   render() {
     // Search should be optional component. If no relevant props, dont show it
-    // NOTE: not sure if there is a more optimal way to do this, than inside the render func
     let optionalSearch;
     if (this.props.handleSearch) {
       optionalSearch = (
@@ -126,22 +166,28 @@ export default class MaterialTable extends Component {
           handleSearch={this.props.handleSearch} />
       );
     }
-    
+
     return (
       <div className={this.props.containerClass} style={this.props.containerStyle}>
         {optionalSearch}
         <Paper zDepth={2}>
           <ActionBar
-            itemSelectedCount={this.state.itemsSelected.length}
+            itemSelectedCount={this.state.countSelected}
             filters={this.props.filters}
             handleDelete={this.handleDelete}
             handleFilter={this.props.handleFilter} />
           <Table
             onCellClick={this.handleRowClick}
-            onRowSelection={this.handleRowSelection}
             multiSelectable>
-            <TableHeader>
+            <TableHeader
+              displaySelectAll={false}
+              adjustForCheckbox={false}>
               <TableRow>
+                <TableHeaderColumn style={styles.checkboxColumn}>
+                  <Checkbox
+                    checked={this.state.allSelected}
+                    onCheck={this.handleSelectAll} />
+                </TableHeaderColumn>
                 {this.props.avatar && this.displayAvatar() && (
                   <TableHeaderColumn style={styles.smallColumn} />
                 )}
@@ -161,23 +207,27 @@ export default class MaterialTable extends Component {
                 )}
               </TableRow>
             </TableHeader>
-            <TableBody showRowHover style={styles.tableBody}>
+            <TableBody showRowHover style={styles.tableBody} displayRowCheckbox={false}>
               {this.props.items.map((item, tableIdx) => (
-                <TableRow
-                  key={item[this.props.itemUniqueId]}
-                  selected={this.state.itemsSelected.includes(tableIdx)}>
+                <TableRow key={item[this.props.itemUniqueId]}>
+                  <TableRowColumn style={styles.checkboxColumn}>
+                    <Checkbox
+                      data-key={tableIdx}
+                      checked={this.state.selections[tableIdx]}
+                      onCheck={this.handleSelect} />
+                  </TableRowColumn>
                   {this.props.avatar && this.displayAvatar() && (
-                    <TableRowColumn style={styles.smallColumn}>
-                      <Avatar
-                        src={selectn(this.props.avatar, item)}
-                        icon={<FallbackIcon />} />
-                    </TableRowColumn>
+                  <TableRowColumn style={styles.smallColumn}>
+                    <Avatar
+                      src={selectn(this.props.avatar, item)}
+                      icon={<FallbackIcon />} />
+                  </TableRowColumn>
                   )}
                   {this.props.columns.map((column) => {
                     if (!this.displayColumn(column)) return null;
                     let columnValue = selectn(column.key, item);
-                    if (columnValue !== undefined && column.format) {
-                      columnValue = column.format(columnValue);
+                    if (columnValue && column.format) {
+                      columnValue = column.format(columnValue, item);
                     }
                     return (
                       <TableRowColumn key={column.label} colSpan={column.colSpan}>
