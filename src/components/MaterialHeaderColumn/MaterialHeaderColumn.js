@@ -1,57 +1,51 @@
-import React, { PureComponent } from 'react';
+// @flow
+import React, { Component } from 'react';
 import { TableHeaderColumn } from 'material-ui/Table';
 import ArrowDown from 'material-ui/svg-icons/navigation/arrow-downward';
 import ArrowUp from 'material-ui/svg-icons/navigation/arrow-upward';
 import { darkBlack } from 'material-ui/styles/colors';
 
-const styles = {
-  headerColumn: {
-    textTransform: 'uppercase',
-    fontWeight: 600,
-    fontSize: 12,
-    position: 'relative',
-  },
-  clickable: {
-    cursor: 'pointer',
-  },
-  icon: {
-    position: 'absolute',
-    left: 0,
-    height: 13,
-    width: 15,
-  },
-};
+import { materialHeaderColumnStyles } from './styles';
+import type { NoArgsNoReturn } from '../../../flow/common-types';
+import type {
+  MaterialHeaderColumnProps,
+  ColumnStyle,
+  GetSortIcon,
+  IsCurrentSort,
+  IsSortable,
+} from './types';
 
-export default class MaterialHeaderColumn extends PureComponent {
+export default class MaterialHeaderColumn extends Component {
+  props: MaterialHeaderColumnProps
   /**
    * Grab the correct directional icon based on
    * currentSort direction.
    */
-  getSortIcon = () => {
+  getSortIcon: GetSortIcon = () => {
     if (!this.isCurrentSort()) return null;
     let Icon = ArrowDown;
     if (this.props.currentSort.direction === 'ASC') Icon = ArrowUp;
-    return <Icon style={styles.icon} />;
+    return <Icon style={materialHeaderColumnStyles.icon} />;
   }
 
   // Shortcut for a often used boolean check
-  isCurrentSort = () => this.props.currentSort.label === this.props.label;
+  isCurrentSort: IsCurrentSort = () => this.props.currentSort.label === this.props.label;
 
   // Shortcut for a often used boolean check
-  isSortable = () => this.props.sortable;
+  isSortable: IsSortable = () => this.props.sortable;
 
   /**
    * Generates a style object for the current column
    * based on props.
    */
-  columnStyle = () => {
+  columnStyle: ColumnStyle = () => {
     const dynamicStyle = {
 
     };
     if (this.isCurrentSort()) dynamicStyle.color = darkBlack;
     if (this.isSortable()) dynamicStyle.cursor = 'pointer';
     return {
-      ...styles.headerColumn,
+      ...materialHeaderColumnStyles.headerColumn,
       ...dynamicStyle,
     };
   };
@@ -60,15 +54,17 @@ export default class MaterialHeaderColumn extends PureComponent {
    * quickly toggle the currently sorted column.
    * This approach only allows one column to be sorted at a time.
    */
-  toggleSort = () => {
+  toggleSort: NoArgsNoReturn = () => {
     if (!this.isSortable()) return;
     if (this.isCurrentSort()) {
       if (this.props.currentSort.direction === 'ASC') {
-        return this.props.handleSort(this.props.currentSort.label, 'DESC', this.props.fieldKey);
+        this.props.handleSort(this.props.currentSort.label, 'DESC', this.props.fieldKey);
+        return;
       }
-      return this.props.handleSort(); // Clear sort
+      this.props.handleSort(); // Clear sort
+      return;
     }
-    return this.props.handleSort(this.props.label, 'ASC', this.props.fieldKey);
+    this.props.handleSort(this.props.label, 'ASC', this.props.fieldKey);
   };
 
   render() {

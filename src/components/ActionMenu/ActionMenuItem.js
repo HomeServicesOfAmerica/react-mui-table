@@ -1,12 +1,17 @@
-import React, { PureComponent } from 'react';
+// @flow
+import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 
-export default class ActionMenuItem extends PureComponent {
+import type { NoArgsNoReturn } from '../../../flow/common-types';
+import type { ActionMenuItemProps } from './types';
+
+export default class ActionMenuItem extends Component {
+  props: ActionMenuItemProps
   /**
    * Call the handler defined on the action and pass in
    * the item being manipulated
    */
-  handleClick = () => {
+  handleClick: NoArgsNoReturn = () => {
     this.props.handler(this.props.item);
     this.props.toggleMenu(false);
   }

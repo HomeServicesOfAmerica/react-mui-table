@@ -18,7 +18,7 @@ module.exports = {
     title: 'React Material List',
     template: path.join(__dirname, './example/index.html'),
     inject: 'body',
-  }), ],
+  })],
   module: {
   	loaders: [
 	  {

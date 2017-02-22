@@ -1,9 +1,11 @@
+// @flow
 import React from 'react';
 
 import Delete from './Delete';
 import Filter from './Filter';
+import type { ActionBarProps } from './types';
 
-const ActionBar = ({ itemSelectedCount, handleDelete, filters, handleFilter }) => {
+const ActionBar = ({ itemSelectedCount, handleDelete, filters, handleFilter }: ActionBarProps) => {
   if (itemSelectedCount) {
     return (
       <Delete
