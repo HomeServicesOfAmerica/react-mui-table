@@ -4,12 +4,13 @@
   "description": "A react component that takes data & style parameters, and renders a Material UI table.",
   "main": "dist/MaterialTable.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "npm run lint && flow && jest --verbose",
     "start": "webpack-dev-server --progress --colors --hot --content-base build --config ./webpack.config.js",
     "prepublish": "npm run build",
     "build": "rm -r dist | babel src -d dist",
     "build:watch": "babel src -d dist -w",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,19 @@
   },
   "keywords": [
     "react",
-    "material-ui"
+    "material",
+    "material-ui",
+    "table"
   ],
-  "author": "Krista Goralczyk",
+  "contributors": [
+    "Krista Goralczyk <krista.goralczyk@gmail.com>",
+    "Nathan Schwartz <nathan.schwartz95@gmail.com>",
+    "Brad Decker <bhdecker84@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "inline-style-prefixer": "^2.0.5",
     "lodash.isequal": "^4.4.0",
     "react": "^15.3.0",
@@ -44,12 +53,14 @@
     "enzyme": "^2.6.0",
     "eslint": "^3.12.0",
     "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-concierge-auctions-react": "^0.0.4",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "file-loader": "^0.9.0",
+    "flow-bin": "^0.39.0",
     "html-webpack-plugin": "^2.24.1",
     "jest": "^17.0.3",
     "material-ui": "^0.16.6",

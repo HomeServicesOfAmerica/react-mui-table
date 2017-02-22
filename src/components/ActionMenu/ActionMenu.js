@@ -1,17 +1,21 @@
+// @flow
 import React, { Component } from 'react';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { lightBlack } from 'material-ui/styles/colors';
+
 import ActionMenuItem from './ActionMenuItem';
+import type { ActionMenuState, ActionMenuProps, ToggleOpen, StopPropogation } from './types';
 
 class ActionMenu extends Component {
-  state = {
+  props: ActionMenuProps
+  state: ActionMenuState = {
     open: false,
   };
 
-  toggleOpen = open => this.setState({ open });
-  stopPropagation = event => event.stopPropagation();
+  toggleOpen: ToggleOpen = open => this.setState({ open });
+  stopPropagation: StopPropogation = event => event.stopPropagation();
 
   render() {
     const { actions, item, itemId } = this.props;

@@ -1,36 +1,29 @@
+// @flow
 import React, { Component } from 'react';
 import isEqual from 'lodash.isequal';
 import IconButton from 'material-ui/IconButton';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
-import prefixer from '../prefixer';
 import RowsPerPage from './RowsPerPage';
-
-const styles = prefixer.prefix({
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    fontSize: 12,
-    fontWeight: 400,
-    color: 'rgba(0, 0, 0, .54)',
-  },
-});
+import { paginationStyles } from './styles';
+import type { NoArgsNoReturn } from '../../../flow/common-types';
+import type { PaginationProps } from './types';
 
 class Pagination extends Component {
-  shouldComponentUpdate = (nextProps, nextState) =>
-    !(isEqual(nextProps, this.props) && isEqual(this.state, nextState))
+  props: PaginationProps
 
-  runNextPage = () => {
+  shouldComponentUpdate = (nextProps: PaginationProps) => !isEqual(nextProps, this.props)
+
+  runNextPage: NoArgsNoReturn = () => {
     const { hasNextPage, nextPage } = this.props;
-    if (!hasNextPage) return null;
+    if (!hasNextPage) return;
     nextPage();
   };
 
-  runPreviousPage = () => {
+  runPreviousPage: NoArgsNoReturn = () => {
     const { hasPreviousPage, previousPage } = this.props;
-    if (!hasPreviousPage) return null;
+    if (!hasPreviousPage) return;
     previousPage();
   };
 
@@ -44,7 +37,7 @@ class Pagination extends Component {
      } = this.props;
 
     return (
-      <div style={styles.wrapper}>
+      <div style={paginationStyles.wrapper}>
         <RowsPerPage
           paginationText={paginationText}
           changeRowsPerPage={changeRowsPerPage}

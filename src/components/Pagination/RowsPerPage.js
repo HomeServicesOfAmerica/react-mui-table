@@ -1,27 +1,14 @@
+// @flow
 import React, { Component } from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import prefixer from '../prefixer';
 
-const styles = prefixer.prefix({
-  rowsPerPage: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    padding: '0 10px',
-  },
-  dropDownMenu: {
-    fontSize: 12,
-    fontWeight: '400',
-    height: 'auto',
-    color: 'rgba(0, 0, 0, 0.54)',
-  },
-  underlineStyle: {
-    border: 'none',
-  },
-});
+import { rowsPerPageStyles } from './styles';
+import type { RowsPerPageProps, RowsPerPageState, MenuChangeHandler } from './types';
 
 class RowsPerPage extends Component {
-  state = {
+  props: RowsPerPageProps
+  state: RowsPerPageState = {
     rowOptions: [
       15,
       25,
@@ -29,22 +16,22 @@ class RowsPerPage extends Component {
     ],
   };
 
-  menuChangeHandler = (evt, key, value) => {
+  menuChangeHandler: MenuChangeHandler = (evt, key, value) => {
     this.props.changeRowsPerPage(value);
   }
 
   render() {
     return (
-      <div style={styles.rowsPerPage}>
-        <span style={styles.rowsText}>
+      <div style={rowsPerPageStyles.rowsPerPage}>
+        <span style={rowsPerPageStyles.rowsText}>
           Rows per page:
         </span>
         <DropDownMenu
           value={this.props.rows}
-          style={styles.dropDownMenu}
-          labelStyle={styles.dropDownMenu}
+          style={rowsPerPageStyles.dropDownMenu}
+          labelStyle={rowsPerPageStyles.dropDownMenu}
           onChange={this.menuChangeHandler}
-          underlineStyle={styles.underlineStyle}>
+          underlineStyle={rowsPerPageStyles.underlineStyle}>
           {this.state.rowOptions.map(opt =>
             <MenuItem
               key={opt}
