@@ -22,6 +22,8 @@ const handleRouting = (...args) => console.log('handleRouting ran', ...args);
 const handleDelete = (...args) => console.log('handleDelete ran: ', ...args);
 const handleFilter = (...args) => console.log('handleFilter ran', ...args);
 const handleSearch = (...args) => console.log('handleSearch ran', ...args);
+const onItemClick = item => console.log(`clicked: ${item.firstName} ${item.lastName}`);
+
 
 //
 // Dummy data
@@ -181,8 +183,6 @@ class Wrapper extends Component {
     });
   };
 
-  onItemClick = item => console.log(`clicked: ${item.firstName} ${item.lastName}`);
-
   render() {
     return (
       <div>
@@ -195,6 +195,8 @@ class Wrapper extends Component {
             columns={columns}
             hasNextPage={hasNextPage}
             hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
             paginationText={paginationText}
             changeRowsPerPage={this.changeRowsPerPage}
             nextPage={nextPage}
@@ -206,7 +208,7 @@ class Wrapper extends Component {
             handleSearch={handleSearch}
             currentSort={this.state.currentSort}
             filters={filters}
-            onItemClick={this.onItemClick}
+            onItemClick={onItemClick}
             rows={this.state.rows}
             containerStyle={{ padding: 96 }}
             sortOptions={sortOptions} />
@@ -221,6 +223,8 @@ class Wrapper extends Component {
             columns={columns}
             hasNextPage={hasNextPage}
             hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
             paginationText={paginationText}
             changeRowsPerPage={this.changeRowsPerPage}
             nextPage={nextPage}
@@ -232,8 +236,179 @@ class Wrapper extends Component {
             handleSearch={handleSearch}
             currentSort={this.state.currentSort}
             filters={filters}
-            onItemClick={this.onItemClick}
+            onItemClick={onItemClick}
             rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+        <h1> Without Filters </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            handleDelete={handleDelete}
+            actions={this.actions}
+            handleFilter={handleFilter}
+            handleSort={this.handleSort}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+
+        <h1> Without Pagination </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            handleDelete={handleDelete}
+            actions={this.actions}
+            handleFilter={handleFilter}
+            handleSort={this.handleSort}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+
+        <h1> Without Sorting </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            handleDelete={handleDelete}
+            actions={this.actions}
+            handleFilter={handleFilter}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+
+        <h1> Without Actions </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            handleDelete={handleDelete}
+            handleFilter={handleFilter}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+
+        <h1> Without Delete </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            paginationText={paginationText}
+            changeRowsPerPage={this.changeRowsPerPage}
+            handleFilter={handleFilter}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+
+        <h1> Without RowsPerPage </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            paginationText={paginationText}
+            handleDelete={handleDelete}
+            handleFilter={handleFilter}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            containerStyle={{ padding: 96 }}
+            sortOptions={sortOptions} />
+        </MuiThemeProvider>
+
+        <h1> With Custom Row Options </h1>
+        <MuiThemeProvider>
+          <Table
+            avatar={avatar}
+            tableName={tableName}
+            itemUniqueId={'id'}
+            items={this.state.items}
+            columns={columns}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            paginationText={paginationText}
+            handleDelete={handleDelete}
+            handleFilter={handleFilter}
+            handleSearch={handleSearch}
+            currentSort={this.state.currentSort}
+            onItemClick={onItemClick}
+            rows={this.state.rows}
+            changeRowsPerPage={this.changeRowsPerPage}
+            rowOptions={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}
             containerStyle={{ padding: 96 }}
             sortOptions={sortOptions} />
         </MuiThemeProvider>

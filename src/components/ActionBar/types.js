@@ -1,11 +1,13 @@
 // @flow
-import type { HandleFilter } from '../../../flow/common-types';
+import type { HandleFilter, FilterConfig } from '../../../flow/common-types';
 
 export type ActionBarProps = {
   itemSelectedCount: number,
+  deleteEnabled: boolean,
   handleDelete: Function,
   filters: Array<Object>,
   handleFilter: Function,
+  filterEnabled: boolean,
 }
 
 export type DeleteProps = {
@@ -18,7 +20,7 @@ export type FilterState = {
 }
 
 export type FilterProps = {
-  filters: Array<Object>,
+  filters: Array<FilterConfig>,
   handleFilter: HandleFilter,
 }
 

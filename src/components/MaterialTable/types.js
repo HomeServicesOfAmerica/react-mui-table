@@ -23,28 +23,30 @@ export type MaterialTableState = {
 export type MaterialTableProps = {
   items: Array<Object>,
   itemUniqueId: string,
-  filters: Array<FilterConfig>,
+  filters?: Array<FilterConfig>,
   avatar?: string,
-  actions: Array<ActionConfig>,
+  actions?: Array<ActionConfig>,
   columns: Array<ColumnConfig>,
   onItemClick?: (item: Object) => void,
 
-  hasNextPage: boolean,
-  hasPreviousPage: boolean,
-  paginationText: string,
-  previousPage: PreviousPage,
-  nextPage: NextPage,
+  hasNextPage?: boolean,
+  hasPreviousPage?: boolean,
+  paginationText?: string,
+  previousPage?: PreviousPage,
+  nextPage?: NextPage,
 
   rows: number,
-  changeRowsPerPage: ChangeRowsPerPage,
-  currentSort: CurrentSort,
-  handleSort: HandleSort,
-  handleDelete: (itemToDelete: Array<Object>) => void,
-  handleFilter: HandleFilter,
-  handleSearch: (query: string) => void,
+  rowOptions?: Array<number>,
+  changeRowsPerPage?: ChangeRowsPerPage,
+  currentSort?: CurrentSort,
+  handleSort?: HandleSort,
+  handleDelete?: (itemToDelete: Array<Object>) => void,
+  handleFilter?: HandleFilter,
+  handleSearch?: (query: string) => void,
 
   containerClass?: string,
   containerStyle?: InlineStyles,
+  tableName?: string,
 }
 
 

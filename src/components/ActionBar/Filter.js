@@ -31,10 +31,9 @@ class Filter extends Component {
     const { filters } = this.props;
     return (
       <div style={filterStyles.container}>
-        <div
-          style={filterStyles.filterBar}
-          onClick={this.toggleVisibility}>
+        <div style={filterStyles.filterBar}>
           <FlatButton
+            onClick={this.toggleVisibility}
             label='filter'
             primary />
         </div>

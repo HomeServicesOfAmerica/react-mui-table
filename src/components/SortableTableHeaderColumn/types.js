@@ -2,10 +2,12 @@
 import type { HandleSort, CurrentSort, FormatFunction } from '../../../flow/common-types';
 
 export type MaterialHeaderColumnProps = {
+  sortEnabled: boolean,
   handleSort: HandleSort,
   currentSort: CurrentSort,
   key: string,
   fieldKey: string,
+
 
   // spread column properties
   label: string,

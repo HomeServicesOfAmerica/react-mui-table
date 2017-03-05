@@ -7,7 +7,9 @@ import type { DeleteProps } from './types';
 
 const Delete = ({ itemSelectedCount, handleDelete }: DeleteProps) => (
   <div style={deleteStyles.deleteBar}>
-    {`${itemSelectedCount} item${itemSelectedCount <= 1 ? '' : 's'} selected`}
+    <span>
+      {`${itemSelectedCount} item${itemSelectedCount <= 1 ? '' : 's'} selected`}
+    </span>
     <DeleteIcon
       style={deleteStyles.iconStyle}
       onClick={handleDelete} />
