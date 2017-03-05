@@ -6,3 +6,5 @@
 flow/definitions.js
 
 [options]
+suppress_type=$FlowIssue
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue

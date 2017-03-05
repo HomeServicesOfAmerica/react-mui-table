@@ -4,7 +4,8 @@
   "description": "A react component that takes data & style parameters, and renders a Material UI table.",
   "main": "dist/MaterialTable.js",
   "scripts": {
-    "test": "npm run lint && flow && jest --verbose",
+    "test": "npm run lint && flow && npm run jest",
+    "jest": "jest --verbose --no-cache --bail",
     "start": "webpack-dev-server --progress --colors --hot --content-base build --config ./webpack.config.js",
     "prepublish": "npm run build",
     "build": "rm -r dist | babel src -d dist",
@@ -28,6 +29,12 @@
     "Brad Decker <bhdecker84@gmail.com>"
   ],
   "license": "MIT",
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup.js",
+    "testMatch": [
+      "**/__tests__/**/*.spec.js"
+    ]
+  },
   "dependencies": {
     "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -59,10 +66,11 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
+    "expect": "^1.20.2",
     "file-loader": "^0.9.0",
     "flow-bin": "^0.39.0",
     "html-webpack-plugin": "^2.24.1",
-    "jest": "^17.0.3",
+    "jest": "^19.0.2",
     "material-ui": "^0.16.6",
     "moment": "^2.17.1",
     "react-addons-test-utils": "^15.4.1",

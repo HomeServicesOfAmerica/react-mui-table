@@ -22,7 +22,7 @@ export default class MaterialHeaderColumn extends Component {
    * currentSort direction.
    */
   getSortIcon: GetSortIcon = () => {
-    if (!this.isCurrentSort()) return null;
+    if (!this.props.sortEnabled || !this.isCurrentSort()) return null;
     let Icon = ArrowDown;
     if (this.props.currentSort.direction === 'ASC') Icon = ArrowUp;
     return <Icon style={materialHeaderColumnStyles.icon} />;
@@ -39,11 +39,11 @@ export default class MaterialHeaderColumn extends Component {
    * based on props.
    */
   columnStyle: ColumnStyle = () => {
-    const dynamicStyle = {
-
-    };
-    if (this.isCurrentSort()) dynamicStyle.color = darkBlack;
-    if (this.isSortable()) dynamicStyle.cursor = 'pointer';
+    const dynamicStyle = {};
+    if (this.props.sortEnabled) {
+      if (this.isCurrentSort()) dynamicStyle.color = darkBlack;
+      if (this.isSortable()) dynamicStyle.cursor = 'pointer';
+    }
     return {
       ...materialHeaderColumnStyles.headerColumn,
       ...dynamicStyle,
@@ -55,7 +55,7 @@ export default class MaterialHeaderColumn extends Component {
    * This approach only allows one column to be sorted at a time.
    */
   toggleSort: NoArgsNoReturn = () => {
-    if (!this.isSortable()) return;
+    if (!this.props.sortEnabled || !this.isSortable()) return;
     if (this.isCurrentSort()) {
       if (this.props.currentSort.direction === 'ASC') {
         this.props.handleSort(this.props.currentSort.label, 'DESC', this.props.fieldKey);
@@ -74,7 +74,8 @@ export default class MaterialHeaderColumn extends Component {
         onClick={this.toggleSort}
         colSpan={this.props.colSpan}
         tooltip={this.props.tooltip}>
-        {this.getSortIcon()}{this.props.label}
+        {this.getSortIcon()}
+        <span>{this.props.label}</span>
       </TableHeaderColumn>
     );
   }

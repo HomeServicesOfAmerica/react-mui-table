@@ -4,7 +4,7 @@ import type { ActionConfig, ActionHandler } from '../../../flow/common-types';
 export type ActionMenuItemProps = {
   text: string,
   toggleMenu: (open: boolean) => void,
-  item: ActionConfig,
+  item: Object,
   handler: ActionHandler,
   icon: React$Element<*>,
 }

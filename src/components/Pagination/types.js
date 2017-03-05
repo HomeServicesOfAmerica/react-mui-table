@@ -8,7 +8,8 @@ export type PaginationProps = {
   rows: number,
   nextPage: NextPage,
   previousPage: PreviousPage,
-  changeRowsPerPage: ChangeRowsPerPage,
+  changeRowsPerPage?: ChangeRowsPerPage,
+  rowOptions: Array<number>,
 }
 
 export type RowsPerPageState = {
@@ -17,8 +18,9 @@ export type RowsPerPageState = {
 
 export type RowsPerPageProps = {
   paginationText: string,
-  changeRowsPerPage: ChangeRowsPerPage,
+  changeRowsPerPage?: ChangeRowsPerPage,
   rows: number,
+  rowOptions: Array<number>,
 }
 
 export type MenuChangeHandler = (evt: CustomSyntheticEvent, key: string, value: number) => void;

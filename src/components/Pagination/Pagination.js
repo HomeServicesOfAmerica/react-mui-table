@@ -34,6 +34,7 @@ class Pagination extends Component {
       rows,
       paginationText,
       changeRowsPerPage,
+      rowOptions,
      } = this.props;
 
     return (
@@ -41,6 +42,7 @@ class Pagination extends Component {
         <RowsPerPage
           paginationText={paginationText}
           changeRowsPerPage={changeRowsPerPage}
+          rowOptions={rowOptions}
           rows={rows} />
 
         <IconButton

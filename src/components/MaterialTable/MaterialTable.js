@@ -1,20 +1,30 @@
 // @flow
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
-import { Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn } from 'material-ui/Table';
 import isEqual from 'lodash.isequal';
-import Avatar from 'material-ui/Avatar';
-import FallbackIcon from 'material-ui/svg-icons/social/person';
 import respondable from 'respondable';
-import selectn from 'selectn';
-import Checkbox from 'material-ui/Checkbox';
+import Paper from 'material-ui/Paper';
 
-import MaterialHeaderColumn from '../MaterialHeaderColumn';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+} from 'material-ui/Table';
+
+import {
+  isFilterEnabled,
+  isSortEnabled,
+  isSearchEnabled,
+  isDeleteEnabled,
+  areActionsEnabled,
+  isPaginationEnabled,
+} from '../../util/featureToggles';
+import TableHeaderRow from '../TableHeaderRow';
+import TableBodyRow from '../TableBodyRow';
 import ActionBar from '../ActionBar';
 import Pagination from '../Pagination';
-import ActionMenu from '../ActionMenu';
 import Search from '../Search';
 import styles from './styles';
+
 import type { NoArgsNoReturn } from '../../../flow/common-types';
 import type {
   MaterialTableState,
@@ -40,8 +50,6 @@ const priorities = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export default class MaterialTable extends Component {
   props: MaterialTableProps
-  columnMap: Map<string, boolean> = new Map();
-  destroyRespondable: Function = () => {};
   state: MaterialTableState = {
     selections: this.props.items.map(() => false),
     countSelected: 0,
@@ -49,12 +57,28 @@ export default class MaterialTable extends Component {
     viewSize: undefined,
   };
 
+  columnMap: Map<string, boolean> = new Map();
+  destroyRespondable: Function = () => {};
+  filterEnabled: boolean = isFilterEnabled(this.props)
+  searchEnabled: boolean = isSearchEnabled(this.props)
+  sortEnabled: boolean = isSortEnabled(this.props)
+  deleteEnabled: boolean = isDeleteEnabled(this.props)
+  paginationEnabled: boolean = isPaginationEnabled(this.props)
+  actionsEnabled: boolean = areActionsEnabled(this.props)
+
   componentDidMount() {
     this.destroyRespondable = respondable(breakpointObject, this.handleResize);
   }
 
   componentWillReceiveProps(nextProps: MaterialTableProps) {
     if (!isEqual(nextProps.columns, this.props.columns)) this.columnMap.clear();
+
+    this.filterEnabled = isFilterEnabled(nextProps);
+    this.searchEnabled = isSearchEnabled(nextProps);
+    this.sortEnabled = isSortEnabled(nextProps);
+    this.deleteEnabled = isDeleteEnabled(nextProps);
+    this.actionsEnabled = areActionsEnabled(nextProps);
+    this.paginationEnabled = isPaginationEnabled(nextProps);
   }
 
   // NOTE: This will hinder performance if data sets are large enough
@@ -124,24 +148,29 @@ export default class MaterialTable extends Component {
   // We don't want selected items to persist between pages
   handleNextPage: NoArgsNoReturn = () => {
     this.toggleAll(true);
-    this.props.nextPage();
+    // $FlowIssue
+    if (this.paginationEnabled) this.props.nextPage();
   };
   handlePreviousPage: NoArgsNoReturn = () => {
     this.toggleAll(true);
-    this.props.previousPage();
+    // $FlowIssue
+    if (this.paginationEnabled) this.props.previousPage();
   };
 
   onSearch: OnSearch = (event) => {
-    this.props.handleSearch(event.target.value);
+    const { handleSearch } = this.props;
+    // $FlowIssue
+    if (this.searchEnabled) handleSearch(event.target.value);
   };
 
   handleDelete: NoArgsNoReturn = () => {
-    if (this.props.handleDelete) {
+    if (this.deleteEnabled) {
       // We have to filter out the ones that are being tracked but currently aren't selected.
       const validSelections = this.state.selections
         .filter(isSelected => Boolean(isSelected))
         .map((_, idx) => this.props.items[idx]);
 
+      // $FlowIssue
       this.props.handleDelete(validSelections);
       this.toggleAll(true);
     }
@@ -168,104 +197,89 @@ export default class MaterialTable extends Component {
   displayAvatar: DisplayAvatar = () => this.displayColumn({ sm: false });
 
   render() {
-    // Search should be optional component. If no relevant props, dont show it
-    let optionalSearch;
-    if (this.props.handleSearch) {
-      optionalSearch = (
-        <Search
-          tableName={this.props.tableName || ''}
-          onSearch={this.onSearch} />
-      );
-    }
+    const {
+      containerClass,
+      containerStyle,
+      tableName,
+      filters,
+      handleFilter,
+      avatar,
+      columns,
+      handleSort,
+      currentSort,
+      actions,
+      items,
+      itemUniqueId,
+      hasNextPage,
+      hasPreviousPage,
+      paginationText,
+      changeRowsPerPage,
+      rowOptions,
+      rows,
+    } = this.props;
 
     return (
-      <div className={this.props.containerClass} style={this.props.containerStyle}>
-        {optionalSearch}
+      <div className={containerClass} style={containerStyle}>
+        {this.searchEnabled && (
+          <Search
+            tableName={tableName || ''}
+            onSearch={this.onSearch} />
+        )}
         <Paper zDepth={2}>
           <ActionBar
             itemSelectedCount={this.state.countSelected}
-            filters={this.props.filters}
+            deleteEnabled={this.deleteEnabled}
             handleDelete={this.handleDelete}
-            handleFilter={this.props.handleFilter} />
+            filterEnabled={this.filterEnabled}
+            filters={filters}
+            handleFilter={handleFilter} />
           <Table
             onCellClick={this.handleRowClick}
             multiSelectable>
             <TableHeader
               displaySelectAll={false}
               adjustForCheckbox={false}>
-              <TableRow>
-                <TableHeaderColumn style={styles.checkboxColumn}>
-                  <Checkbox
-                    checked={this.state.allSelected}
-                    onCheck={this.handleSelectAll} />
-                </TableHeaderColumn>
-                {this.props.avatar && this.displayAvatar() && (
-                  <TableHeaderColumn style={styles.smallColumn} />
-                )}
-                {this.props.columns.map((column) => {
-                  if (!this.displayColumn(column)) return null;
-                  return (
-                    <MaterialHeaderColumn
-                      key={column.label}
-                      fieldKey={column.key}
-                      handleSort={this.props.handleSort}
-                      currentSort={this.props.currentSort}
-                      {...column} />
-                  );
-                })}
-                {this.props.actions && this.props.actions.length > 0 && (
-                  <TableHeaderColumn style={styles.smallColumn} />
-                )}
-              </TableRow>
+              <TableHeaderRow
+                sortEnabled={this.sortEnabled}
+                actionsEnabled={this.actionsEnabled}
+                allSelected={this.state.allSelected}
+                handleSelectAll={this.handleSelectAll}
+                handleSort={handleSort}
+                currentSort={currentSort}
+                columns={columns}
+                avatar={avatar}
+                displayColumn={this.displayColumn}
+                displayAvatar={this.displayAvatar} />
             </TableHeader>
             <TableBody showRowHover style={styles.tableBody} displayRowCheckbox={false}>
-              {this.props.items.map((item, tableIdx) => (
-                <TableRow key={item[this.props.itemUniqueId]}>
-                  <TableRowColumn style={styles.checkboxColumn}>
-                    <Checkbox
-                      data-key={tableIdx}
-                      checked={this.state.selections[tableIdx]}
-                      onCheck={this.handleSelect} />
-                  </TableRowColumn>
-                  {this.props.avatar && this.displayAvatar() && (
-                    <TableRowColumn style={styles.smallColumn}>
-                      <Avatar
-                        src={selectn(this.props.avatar, item)}
-                        icon={<FallbackIcon />} />
-                    </TableRowColumn>
-                  )}
-                  {this.props.columns.map((column) => {
-                    if (!this.displayColumn(column)) return null;
-                    let columnValue = selectn(column.key, item);
-                    if (columnValue && column.format) {
-                      columnValue = column.format(columnValue, item);
-                    }
-                    return (
-                      <TableRowColumn key={column.label} colSpan={column.colSpan}>
-                        {columnValue || ''}
-                      </TableRowColumn>
-                    );
-                  })}
-                  {this.props.actions && this.props.actions.length > 0 && (
-                    <TableRowColumn style={styles.smallColumn}>
-                      <ActionMenu
-                        actions={this.props.actions}
-                        item={item}
-                        itemId={item[this.props.itemUniqueId]} />
-                    </TableRowColumn>
-                  )}
-                </TableRow>
+              {items.map((item, tableIdx) => (
+                <TableBodyRow
+                  key={item[itemUniqueId]}
+                  actions={actions}
+                  item={item}
+                  itemUniqueId={itemUniqueId}
+                  tableIdx={tableIdx}
+                  avatar={avatar}
+                  columns={columns}
+                  displayColumn={this.displayColumn}
+                  displayAvatar={this.displayAvatar}
+                  handleSelect={this.handleSelect}
+                  selections={this.state.selections}
+                  actionsEnabled={this.actionsEnabled} />
               ))}
             </TableBody>
           </Table>
-          <Pagination
-            hasNextPage={this.props.hasNextPage}
-            hasPreviousPage={this.props.hasPreviousPage}
-            paginationText={this.props.paginationText}
-            changeRowsPerPage={this.props.changeRowsPerPage}
-            nextPage={this.handleNextPage}
-            previousPage={this.handlePreviousPage}
-            rows={this.props.rows} />
+          {this.paginationEnabled && (
+            <Pagination
+              hasNextPage={hasNextPage}
+              hasPreviousPage={hasPreviousPage}
+              paginationText={paginationText}
+              changeRowsPerPage={changeRowsPerPage}
+              nextPage={this.handleNextPage}
+              previousPage={this.handlePreviousPage}
+              rowOptions={rowOptions}
+              rows={rows} />
+          )}
         </Paper>
       </div>
     );
