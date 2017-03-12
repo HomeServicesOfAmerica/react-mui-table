@@ -11,7 +11,6 @@ const mockedProps = {
   actions: [
     {
       text: 'Edit',
-      action: 'edit',
       handler: expect.createSpy(),
       enabled: (item) => {
         enabledSpy(item);

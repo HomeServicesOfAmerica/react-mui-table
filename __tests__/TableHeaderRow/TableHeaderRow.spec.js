@@ -17,14 +17,12 @@ const mockedProps = {
     {
       label: 'Pets',
       sortable: false,
-      filterable: true,
       format: item => item.join(', ').toUpperCase(),
       key: 'pets',
     },
     {
       label: 'Phone',
       sortable: true,
-      filterable: true,
       key: 'phone',
     },
   ],

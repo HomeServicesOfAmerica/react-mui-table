@@ -20,7 +20,6 @@ const mockedProps = {
   currentSort: {},
   label: 'Pets',
   sortable: true,
-  filterable: true,
   format: item => item.join(', ').toUpperCase(),
   key: 'pets',
   colSpan: 2,

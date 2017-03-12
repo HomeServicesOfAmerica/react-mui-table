@@ -12,7 +12,6 @@ export type MaterialHeaderColumnProps = {
   // spread column properties
   label: string,
   sortable: boolean,
-  filterable: boolean,
   format?: FormatFunction,
   colSpan?: number,
   xs?: boolean,

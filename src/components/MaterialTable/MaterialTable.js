@@ -134,12 +134,10 @@ export default class MaterialTable extends Component {
   };
 
   handleRowClick: HandleRowClick = (rowId, colId) => {
-    // Adding 3 because checkbox, avatar, menu aren't included, and they increase the column count
-    // even if they aren't rendered.
-    const menuColId = this.props.columns.length + 3;
-
+    // Adding 3 for checkbox, avatar, and menu. They increase the column count even if not used.
+    const menuColId = (this.props.columns.length - 1) + 3;
     if (!this.props.onItemClick) return null; // Do nothing if no click handler
-    if (colId === 1) return null; // Do nothing if clicking the checkbox
+    if (colId === 0) return null; // Do nothing if clicking the checkbox
     if (colId === menuColId) return null; // Do nothing if clicking the menu
 
     return this.props.onItemClick(this.props.items[rowId]);
@@ -235,7 +233,8 @@ export default class MaterialTable extends Component {
             handleFilter={handleFilter} />
           <Table
             onCellClick={this.handleRowClick}
-            multiSelectable>
+            multiSelectable
+            wrapperStyle={{ overflowX: 'hidden' }}>
             <TableHeader
               displaySelectAll={false}
               adjustForCheckbox={false}>
