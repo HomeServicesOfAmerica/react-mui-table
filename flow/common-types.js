@@ -27,8 +27,6 @@ export type ColumnConfig = {
   label: string,
   // Should the column be clickable for sorting?
   sortable: boolean,
-  // @deprecated. Use filterConfig prop instead
-  filterable: boolean,
   // Override the visual representation of the column's data
   format?: FormatFunction,
   // field path to get to the value from the item Object
@@ -58,10 +56,6 @@ export type ColumnConfig = {
 export type ActionConfig = {
   // The label of the action in the dropdown menu
   text: string,
-  // This action string was previously used as a way to have a single
-  // handler that would receive the action type as well as the item.
-  // It is now deprecated and could be removed in a future release.
-  action: string,
   // The callback to be fired when the action is clicked
   handler: ActionHandler,
   // Should this action be enabled. boolean or function that returns boolean

@@ -55,27 +55,23 @@ const columns = [
     label: 'first name',
     key: 'firstName',
     sortable: true,
-    filterable: true,
   },
   {
     label: 'last name',
     key: 'lastName',
     sortable: true,
-    filterable: true,
     sm: false,
   },
   {
     label: 'Email',
     key: 'email',
     sortable: true,
-    filterable: true,
     colSpan: 2,
   },
   {
     label: 'Important Date',
     key: 'date',
     sortable: false,
-    filterable: false,
     lg: true,
     xl: false,
     tooltip: 'Haha this is not really important',
@@ -123,7 +119,6 @@ class Wrapper extends Component {
   actions = [
     {
       text: 'Delete',
-      action: 'delete',
       handler: target => this.setState({
         items: this.state.items.filter(item => item.id !== target.id),
       }),
@@ -132,7 +127,6 @@ class Wrapper extends Component {
     },
     {
       text: 'Publish',
-      action: 'publish',
       handler: (target) => {
         const newItems = this.state.items.map((item) => {
           if (item.id === target.id) item.status = 'published';
@@ -145,7 +139,6 @@ class Wrapper extends Component {
     },
     {
       text: 'Unpublish',
-      action: 'unpublish',
       handler: (target) => {
         const newItems = this.state.items.map((item) => {
           if (item.id === target.id) item.status = 'unpublished';
@@ -158,7 +151,6 @@ class Wrapper extends Component {
     },
     {
       text: 'Edit',
-      action: 'edit',
       handler: handleRouting,
       enabled: true,
       icon: <EditIcon />,

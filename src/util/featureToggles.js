@@ -16,8 +16,7 @@ export const isSortEnabled: FeatureToggle = props =>
 export const isFilterEnabled: FeatureToggle = props =>
   typeof props.handleFilter === 'function'
   && Array.isArray(props.filters)
-  && props.filters.length > 0
-  && props.columns.some(col => col.filterable);
+  && props.filters.length > 0;
 
 export const areActionsEnabled: FeatureToggle = props =>
   Array.isArray(props.actions)

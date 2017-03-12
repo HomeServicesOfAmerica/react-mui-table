@@ -9,7 +9,6 @@ const mockedProps = {
   actions: [
     {
       text: 'Edit',
-      action: 'edit',
       handler: expect.createSpy(),
       enabled: (item) => {
         enabledSpy(item);
@@ -32,14 +31,12 @@ const mockedProps = {
     {
       label: 'Pets',
       sortable: true,
-      filterable: true,
       format: item => item.join(', ').toUpperCase(),
       key: 'pets',
     },
     {
       label: 'Phone',
       sortable: true,
-      filterable: true,
       key: 'phone',
     },
   ],
