@@ -72,6 +72,7 @@ export default class MaterialTable extends Component {
 
   componentWillReceiveProps(nextProps: MaterialTableProps) {
     if (!isEqual(nextProps.columns, this.props.columns)) this.columnMap.clear();
+    if (!isEqual(nextProps.items, this.props.items)) this.toggleAll(true);
 
     this.filterEnabled = isFilterEnabled(nextProps);
     this.searchEnabled = isSearchEnabled(nextProps);
