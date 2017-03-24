@@ -1,6 +1,6 @@
 {
   "name": "react-mui-table",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "A react component that takes data & style parameters, and renders a Material UI table.",
   "main": "dist/MaterialTable.js",
   "scripts": {

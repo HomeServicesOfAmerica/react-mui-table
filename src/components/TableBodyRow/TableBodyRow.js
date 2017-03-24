@@ -45,7 +45,7 @@ const TableBodyRow = (props: TableBodyRowProps) => {
       {columns.map((column) => {
         if (!displayColumn(column)) return null;
         let columnValue = selectn(column.key, item);
-        if (columnValue && column.format) {
+        if (column.format) {
           columnValue = column.format(columnValue, item);
         }
         return (
