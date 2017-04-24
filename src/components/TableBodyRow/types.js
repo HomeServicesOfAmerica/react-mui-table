@@ -2,6 +2,7 @@
 import type {
   ColumnConfig,
   ActionConfig,
+  Avatar,
 } from '../../../flow/common-types';
 import type {
   HandleSelect,
@@ -14,7 +15,7 @@ export type TableBodyRowProps = {
   item: Object,
   itemUniqueId: string,
   tableIdx: number,
-  avatar: string,
+  avatar: Avatar,
   columns: Array<ColumnConfig>,
   displayColumn: DisplayColumn,
   displayAvatar: DisplayAvatar,
@@ -23,5 +24,4 @@ export type TableBodyRowProps = {
   actionsEnabled: boolean,
 };
 
-type GetImageSrc = (item: Object) => string|void;
-export type GetAvatarSrc = (avatar: GetImageSrc|string, item: Object) => string|void;
+export type GetAvatarSrc = (avatar: Avatar, item: Object) => string|void;

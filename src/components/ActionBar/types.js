@@ -5,7 +5,7 @@ export type ActionBarProps = {
   itemSelectedCount: number,
   deleteEnabled: boolean,
   handleDelete: Function,
-  filters: Array<Object>,
+  filters: Array<FilterConfig>,
   handleFilter: Function,
   filterEnabled: boolean,
 }

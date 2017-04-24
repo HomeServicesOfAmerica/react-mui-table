@@ -4,6 +4,7 @@ import type {
   ColumnConfig,
   HandleSort,
   CurrentSort,
+  Avatar,
 } from '../../../flow/common-types';
 import type {
   DisplayAvatar,
@@ -15,7 +16,7 @@ export type TableHeaderRowProps = {
 
   handleSort: HandleSort,
   currentSort: CurrentSort,
-  avatar: string,
+  avatar: Avatar,
   columns: Array<ColumnConfig>,
 
   handleSelectAll: NoArgsNoReturn,
