@@ -28,16 +28,17 @@ class RowsPerPage extends Component {
   }
 
   render() {
+    const { changeRowsPerPage, paginationText, rows } = this.props;
     return (
       <div style={rowsPerPageStyles.rowsPerPage}>
-        {this.props.changeRowsPerPage && (
+        {changeRowsPerPage && (
           <span style={rowsPerPageStyles.rowsText}>
             Rows per page:
           </span>
         )}
-        {this.props.changeRowsPerPage && (
+        {changeRowsPerPage && (
           <DropDownMenu
-            value={this.props.rows}
+            value={rows}
             style={rowsPerPageStyles.dropDownMenu}
             labelStyle={rowsPerPageStyles.dropDownMenu}
             onChange={this.menuChangeHandler}
@@ -50,7 +51,7 @@ class RowsPerPage extends Component {
               )}
           </DropDownMenu>
         )}
-        <span>{this.props.paginationText}</span>
+        <span>{paginationText}</span>
       </div>
     );
   }

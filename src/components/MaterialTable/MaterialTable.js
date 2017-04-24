@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import isEqual from 'lodash.isequal';
 import respondable from 'respondable';
 import Paper from 'material-ui/Paper';
+import selectn from 'selectn';
 
 import {
   Table,
@@ -49,6 +50,11 @@ const breakpointObject = {
 const priorities = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export default class MaterialTable extends Component {
+
+  static defaultProps = {
+    rows: 30,
+  }
+
   props: MaterialTableProps
   state: MaterialTableState = {
     selections: this.props.items.map(() => false),
@@ -254,7 +260,7 @@ export default class MaterialTable extends Component {
             <TableBody showRowHover style={styles.tableBody} displayRowCheckbox={false}>
               {items.map((item, tableIdx) => (
                 <TableBodyRow
-                  key={item[itemUniqueId]}
+                  key={selectn(itemUniqueId, item)}
                   actions={actions}
                   item={item}
                   itemUniqueId={itemUniqueId}

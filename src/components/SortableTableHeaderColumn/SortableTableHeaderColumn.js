@@ -32,7 +32,7 @@ export default class MaterialHeaderColumn extends Component {
   isCurrentSort: IsCurrentSort = () => this.props.currentSort.label === this.props.label;
 
   // Shortcut for a often used boolean check
-  isSortable: IsSortable = () => this.props.sortable;
+  isSortable: IsSortable = () => this.props.sortable === true;
 
   /**
    * Generates a style object for the current column

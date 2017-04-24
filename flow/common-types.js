@@ -6,6 +6,8 @@ export type ActionHandler = (target: Object) => {};
 export type ChangeRowsPerPage = (newRowCount: number) => void;
 export type NextPage = NoArgsNoReturn;
 export type PreviousPage = NoArgsNoReturn;
+type GetImageSrc = (item: Object) => string|void;
+export type Avatar = GetImageSrc|string;
 
 // Passed nothing to clear the sort, otherwise all are required
 export type HandleSort = (label?: string, direction?: string, key?: string) => void;
@@ -16,7 +18,7 @@ export type FormatFunction = (
 ) => React$Element<*> | string;
 
 export type CurrentSort = {
-  direction: string,
+  direction: 'ASC' | 'DESC',
   label: string,
 }
 

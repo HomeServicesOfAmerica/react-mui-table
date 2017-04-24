@@ -3,14 +3,13 @@ import type {
   ActionConfig,
   ColumnConfig,
   FilterConfig,
-
   PreviousPage,
   NextPage,
   ChangeRowsPerPage,
-
   HandleFilter,
   HandleSort,
   CurrentSort,
+  Avatar,
 } from '../../../flow/common-types';
 
 export type MaterialTableState = {
@@ -24,7 +23,7 @@ export type MaterialTableProps = {
   items: Array<Object>,
   itemUniqueId: string,
   filters?: Array<FilterConfig>,
-  avatar?: string,
+  avatar?: Avatar,
   actions?: Array<ActionConfig>,
   columns: Array<ColumnConfig>,
   onItemClick?: (item: Object) => void,
@@ -35,12 +34,12 @@ export type MaterialTableProps = {
   previousPage?: PreviousPage,
   nextPage?: NextPage,
 
-  rows: number,
+  rows?: number,
   rowOptions?: Array<number>,
   changeRowsPerPage?: ChangeRowsPerPage,
   currentSort?: CurrentSort,
   handleSort?: HandleSort,
-  handleDelete?: (itemToDelete: Array<Object>) => void,
+  handleDelete?: (itemsToDelete: Array<Object>) => void,
   handleFilter?: HandleFilter,
   handleSearch?: (query: string) => void,
 

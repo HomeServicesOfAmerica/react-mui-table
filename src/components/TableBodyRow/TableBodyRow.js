@@ -68,7 +68,7 @@ const TableBodyRow = (props: TableBodyRowProps) => {
           <ActionMenu
             actions={actions}
             item={item}
-            itemId={item[itemUniqueId]} />
+            itemId={selectn(itemUniqueId, item)} />
         </TableRowColumn>
       )}
     </TableRow>
