@@ -22,3 +22,6 @@ export type TableBodyRowProps = {
   selections: Array<boolean>,
   actionsEnabled: boolean,
 };
+
+type GetImageSrc = (item: Object) => string|void;
+export type GetAvatarSrc = (avatar: GetImageSrc|string, item: Object) => string|void;
