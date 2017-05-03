@@ -106,6 +106,20 @@ describe('TableBodyRow component', () => {
       .toEqual('SocialPerson');
   });
 
+  it('renders an Avatar if avatar function exists and displayAvatar returns true', () => {
+    mockedProps.displayAvatar.andReturn(true);
+    MountedTableBodyRow.setProps({ avatar: () => mockedProps.avatar, actionsEnabled: false });
+    const TableRowColumns = MountedTableBodyRow.children();
+    expect(TableRowColumns.length).toBe(2);
+    expect(TableRowColumns.everyWhere(tableRowColumnWithOneChild)).toBe(true);
+    expect(TableRowColumns.at(0).childAt(0).name()).toBe('Checkbox');
+    expect(TableRowColumns.at(1).childAt(0).name()).toBe('Avatar');
+    expect(TableRowColumns.at(1).childAt(0).props().src)
+      .toEqual(mockedProps.avatar);
+    expect(TableRowColumns.at(1).childAt(0).props().icon.type.displayName)
+      .toEqual('SocialPerson');
+  });
+
   it('renders item\'s columns if displayColumn returns true', () => {
     mockedProps.displayAvatar.andReturn(false);
     mockedProps.displayColumn.andReturn(true);

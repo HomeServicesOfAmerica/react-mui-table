@@ -11,7 +11,16 @@ import Checkbox from 'material-ui/Checkbox';
 
 import ActionMenu from '../ActionMenu';
 import styles from '../MaterialTable/styles';
-import type { TableBodyRowProps } from './types';
+import type { TableBodyRowProps, GetAvatarSrc } from './types';
+
+const getAvatarSrc: GetAvatarSrc = (avatar, item) => {
+  if (typeof avatar === 'function') {
+    return avatar(item);
+  } else if (typeof avatar === 'string') {
+    return selectn(avatar, item);
+  }
+  return undefined;
+};
 
 const TableBodyRow = (props: TableBodyRowProps) => {
   const {
@@ -38,7 +47,7 @@ const TableBodyRow = (props: TableBodyRowProps) => {
       {avatar && displayAvatar() && (
         <TableRowColumn style={styles.smallColumn}>
           <Avatar
-            src={selectn(avatar, item)}
+            src={getAvatarSrc(avatar, item)}
             icon={<FallbackIcon />} />
         </TableRowColumn>
       )}
